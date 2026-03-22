@@ -16,15 +16,16 @@
 
     body {
       font-family: "Helvetica Neue", Arial, "Hiragino Sans", sans-serif;
+      font-size: 16px;
       background: #ffffff;
       color: #0f172a;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .container {
       max-width: 960px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
     }
 
     /* ── Section ── */
@@ -32,7 +33,7 @@
     .section-alt  { background: #f8fafc; }
 
     .section-tag {
-      font-size: 0.68rem;
+      font-size: 0.75rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.14em;
@@ -40,18 +41,18 @@
       margin-bottom: 6px;
     }
     .section-title {
-      font-size: 1.45rem;
+      font-size: 1.6rem;
       font-weight: 800;
       color: #0f172a;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       letter-spacing: -0.01em;
     }
     .section-desc {
-      font-size: 0.86rem;
+      font-size: 0.97rem;
       color: #64748b;
       margin-bottom: 32px;
       max-width: 640px;
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     /* ── Header ── */
@@ -64,7 +65,7 @@
       display: inline-block;
       background: #eff6ff;
       color: #2563eb;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -73,7 +74,7 @@
       margin-bottom: 20px;
     }
     header h1 {
-      font-size: 2.1rem;
+      font-size: 2.4rem;
       font-weight: 800;
       color: #0f172a;
       margin-bottom: 14px;
@@ -81,11 +82,11 @@
       line-height: 1.25;
     }
     header .lead {
-      font-size: 0.9rem;
+      font-size: 1.05rem;
       color: #64748b;
       max-width: 560px;
       margin: 0 auto;
-      line-height: 1.7;
+      line-height: 1.75;
     }
     header .lead strong { color: #0f172a; }
 
@@ -99,16 +100,16 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
-      padding: 20px 22px;
+      padding: 22px 24px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     .prob-card .icon {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       margin-bottom: 10px;
       display: block;
     }
-    .prob-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; }
-    .prob-card p  { font-size: 0.78rem; color: #64748b; line-height: 1.7; }
+    .prob-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .prob-card p  { font-size: 0.9rem; color: #64748b; line-height: 1.75; }
 
     /* ── Simulator ── */
     .sys-info-bar {
@@ -118,8 +119,8 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 11px 16px;
-      font-size: 0.75rem;
+      padding: 12px 18px;
+      font-size: 0.85rem;
       color: #64748b;
       margin-bottom: 20px;
     }
@@ -137,33 +138,41 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 14px;
+      padding: 16px;
       box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     }
     .param-head {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
-    .param-name { font-size: 0.76rem; font-weight: 600; color: #374151; }
-    .param-val  { font-size: 0.76rem; font-weight: 700; color: #2563eb; }
-    .param-hint { font-size: 0.67rem; color: #94a3b8; margin-bottom: 7px; line-height: 1.4; }
-    input[type=range] { width: 100%; accent-color: #2563eb; cursor: pointer; }
+    .param-name { font-size: 0.85rem; font-weight: 600; color: #374151; }
+    .param-val  { font-size: 0.85rem; font-weight: 700; color: #2563eb; }
+    .param-hint { font-size: 0.76rem; color: #94a3b8; margin-bottom: 8px; line-height: 1.45; }
+    input[type=range] {
+      width: 100%;
+      accent-color: #2563eb;
+      cursor: pointer;
+      height: 20px;         /* タップしやすい高さ */
+      touch-action: manipulation;
+    }
 
     .btn-row {
       display: flex;
       gap: 10px;
       margin-bottom: 18px;
+      flex-wrap: wrap;
     }
     button {
-      padding: 9px 20px;
+      padding: 11px 24px;
       border: none;
       border-radius: 8px;
-      font-size: 0.82rem;
+      font-size: 0.92rem;
       font-weight: 600;
       cursor: pointer;
       transition: opacity .15s, transform .1s;
+      touch-action: manipulation;
     }
     button:hover { opacity: .85; transform: translateY(-1px); }
     #btnReseed  { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
@@ -185,7 +194,7 @@
     #loading {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem; color: #94a3b8;
+      font-size: 0.9rem; color: #94a3b8;
       background: #fff;
       pointer-events: none;
     }
@@ -195,13 +204,13 @@
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
-      padding: 9px 14px;
+      padding: 10px 16px;
       border-top: 1px solid #f1f5f9;
       background: #fafafa;
     }
-    .leg-item { display: flex; align-items: center; gap: 6px; font-size: 0.71rem; color: #64748b; }
+    .leg-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #64748b; }
     .l-line   { width: 20px; height: 2px; border-radius: 1px; flex-shrink: 0; }
-    .l-dot    { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .l-dot    { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .l-dash   {
       width: 20px; height: 2px; flex-shrink: 0;
       background: repeating-linear-gradient(90deg, #94a3b8 0 4px, transparent 4px 7px);
@@ -209,7 +218,7 @@
 
     .mid-row {
       display: grid;
-      grid-template-columns: 210px 1fr;
+      grid-template-columns: 220px 1fr;
       gap: 12px;
       margin-bottom: 12px;
     }
@@ -217,16 +226,16 @@
 
     .insight-bar {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
       background: #ecfdf5;
       border: 1px solid #a7f3d0;
       border-radius: 10px;
-      padding: 11px 16px;
-      font-size: 0.8rem;
+      padding: 14px 18px;
+      font-size: 0.92rem;
       color: #065f46;
       margin-bottom: 16px;
-      line-height: 1.55;
+      line-height: 1.65;
     }
 
     .stats-row {
@@ -238,12 +247,12 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 10px;
-      padding: 14px;
+      padding: 16px;
       text-align: center;
       box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     }
-    .stat-label { font-size: 0.64rem; color: #94a3b8; margin-bottom: 6px; line-height: 1.45; }
-    .stat-value { font-size: 1.2rem; font-weight: 700; color: #2563eb; }
+    .stat-label { font-size: 0.76rem; color: #94a3b8; margin-bottom: 6px; line-height: 1.5; }
+    .stat-value { font-size: 1.3rem; font-weight: 700; color: #2563eb; }
 
     /* ── Explanation sections ── */
     .exp-grid   { display: grid; gap: 16px; }
@@ -254,13 +263,13 @@
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
-      padding: 24px;
+      padding: 26px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
     .exp-card.full { grid-column: 1 / -1; }
 
     .exp-card h3 {
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #0f172a;
       margin-bottom: 14px;
@@ -272,18 +281,18 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 22px; height: 22px;
+      width: 24px; height: 24px;
       background: #2563eb;
       color: #fff;
       border-radius: 50%;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       font-weight: 700;
       flex-shrink: 0;
     }
     .exp-card p {
-      font-size: 0.8rem;
+      font-size: 0.92rem;
       color: #475569;
-      line-height: 1.75;
+      line-height: 1.8;
       margin-bottom: 10px;
     }
     .exp-card p:last-child { margin-bottom: 0; }
@@ -292,15 +301,16 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 8px;
-      padding: 12px 16px;
-      margin: 10px 0;
-      font-size: 0.77rem;
+      padding: 14px 18px;
+      margin: 12px 0;
+      font-size: 0.88rem;
       color: #475569;
-      line-height: 1.8;
+      line-height: 1.9;
+      overflow-x: auto;
     }
     .fml .lbl {
       display: block;
-      font-size: 0.62rem;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -310,10 +320,10 @@
 
     .callout {
       border-radius: 0 8px 8px 0;
-      padding: 10px 14px;
-      font-size: 0.78rem;
-      line-height: 1.65;
-      margin: 10px 0;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin: 12px 0;
     }
     .co-blue   { background: #eff6ff; border-left: 3px solid #3b82f6; color: #1e40af; }
     .co-green  { background: #ecfdf5; border-left: 3px solid #10b981; color: #065f46; }
@@ -323,22 +333,22 @@
     .param-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.77rem;
+      font-size: 0.88rem;
       margin-top: 8px;
     }
     .param-table th {
       text-align: left;
       color: #64748b;
       font-weight: 600;
-      padding: 6px 10px 8px 0;
+      padding: 8px 12px 10px 0;
       border-bottom: 2px solid #e2e8f0;
     }
     .param-table td {
-      padding: 8px 10px 8px 0;
+      padding: 10px 12px 10px 0;
       color: #475569;
       border-bottom: 1px solid #f1f5f9;
       vertical-align: top;
-      line-height: 1.55;
+      line-height: 1.6;
     }
     .param-table td:first-child {
       color: #2563eb;
@@ -348,13 +358,13 @@
     }
 
     /* ── 途中式（expandable） ── */
-    details { margin: 10px 0; }
+    details { margin: 12px 0; }
     summary {
       cursor: pointer;
-      font-size: 0.75rem;
+      font-size: 0.88rem;
       font-weight: 600;
       color: #2563eb;
-      padding: 7px 13px;
+      padding: 9px 14px;
       background: #eff6ff;
       border: 1px solid #bfdbfe;
       border-radius: 8px;
@@ -363,17 +373,18 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      touch-action: manipulation;
     }
     summary::-webkit-details-marker { display: none; }
-    summary .arrow { font-size: 0.6rem; transition: transform .2s; }
+    summary .arrow { font-size: 0.65rem; transition: transform .2s; }
     details[open] summary .arrow { transform: rotate(90deg); }
     .details-body {
       background: #f0f7ff;
       border: 1px solid #bfdbfe;
       border-top: none;
       border-radius: 0 0 8px 8px;
-      padding: 14px 16px;
-      font-size: 0.77rem;
+      padding: 16px 18px;
+      font-size: 0.88rem;
       color: #1e3a5f;
       line-height: 1.9;
     }
@@ -387,16 +398,63 @@
       border-top: 1px solid #f1f5f9;
       padding: 28px 0;
       text-align: center;
-      font-size: 0.74rem;
+      font-size: 0.85rem;
       color: #94a3b8;
     }
 
-    @media (max-width: 760px) {
-      header h1 { font-size: 1.6rem; }
-      .card-grid-3, .param-grid, .exp-3col { grid-template-columns: 1fr; }
-      .exp-2col { grid-template-columns: 1fr; }
-      .mid-row  { grid-template-columns: 1fr; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    /* ════════════════════════════════════════════
+       レスポンシブ — タブレット (max 900px)
+       ════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .param-grid  { grid-template-columns: repeat(2, 1fr); }
+      .exp-3col    { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ════════════════════════════════════════════
+       レスポンシブ — スマートフォン (max 640px)
+       ════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .container { padding: 0 16px; }
+
+      .section { padding: 44px 0; }
+
+      header { padding: 36px 0 32px; }
+      header h1 { font-size: 1.7rem; }
+      header .lead { font-size: 0.95rem; }
+
+      .section-title { font-size: 1.3rem; }
+      .section-desc  { font-size: 0.9rem; }
+
+      .card-grid-3,
+      .param-grid,
+      .exp-2col,
+      .exp-3col      { grid-template-columns: 1fr; }
+
+      .mid-row       { grid-template-columns: 1fr; }
+
+      .stats-row     { grid-template-columns: repeat(2, 1fr); }
+
+      .exp-card { padding: 18px; }
+
+      .exp-card p   { font-size: 0.88rem; }
+      .callout      { font-size: 0.86rem; }
+      .fml          { font-size: 0.82rem; padding: 12px 14px; }
+      .param-table  { font-size: 0.82rem; }
+      .details-body { font-size: 0.84rem; }
+
+      .btn-row { flex-direction: column; }
+      button   { width: 100%; padding: 14px; font-size: 1rem; }
+
+      .sys-info-bar {
+        gap: 10px;
+        font-size: 0.82rem;
+      }
+      .sys-info-bar span { flex: 1 0 45%; }
+
+      .insight-bar { font-size: 0.88rem; flex-direction: column; gap: 6px; }
+
+      .chart-legend { gap: 10px; padding: 8px 12px; }
+      .leg-item { font-size: 0.76rem; }
     }
   </style>
 </head>
