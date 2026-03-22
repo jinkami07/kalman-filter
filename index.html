@@ -1055,7 +1055,7 @@
     <!-- 角度グラフ -->
     <div class="chart-card">
       <canvas id="mainCanvas" data-css-height="260" height="260"></canvas>
-      <div id="loading">読み込み中…</div>
+      <div id="loading" class="hidden">読み込み中…</div>
       <div class="chart-legend">
         <div class="leg-item"><div class="l-dash"></div>目標 $\theta_{\rm ref}$</div>
         <div class="leg-item"><div class="l-line" style="background:#3b82f6"></div>真値 $\theta$（現実には不明）</div>
@@ -1269,8 +1269,139 @@ function drawGrid(ctx, w, h, pad, minV, maxV, dataN, nLines = 5) {
 }
 
 // ─────────────────────────────────────────────────────────────────
-//  API fetch & state
+//  システム定数
 // ─────────────────────────────────────────────────────────────────
+const SYS = { DT: 0.02, J: 0.1, B_FRIC: 0.5, KP: 10.0, KD: 2.0, N: 200 };
+
+// ─────────────────────────────────────────────────────────────────
+//  シード付き乱数（mulberry32 + Box-Muller）
+// ─────────────────────────────────────────────────────────────────
+function makePRNG(seed) {
+  let s = (seed ^ 0xdeadbeef) >>> 0;
+  return () => {
+    s += 0x6D2B79F5;
+    let t = s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function makeNormalRNG(rand) {
+  let spare = null;
+  return (sigma = 1) => {
+    if (spare !== null) { const v = spare * sigma; spare = null; return v; }
+    let u, v, s;
+    do { u = rand()*2-1; v = rand()*2-1; s = u*u+v*v; } while (s >= 1 || s === 0);
+    const m = Math.sqrt(-2 * Math.log(s) / s);
+    spare = v * m;
+    return u * m * sigma;
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  JS 側シミュレーション（PD 制御 + 正弦波追従）
+// ─────────────────────────────────────────────────────────────────
+function simulateJoint(sigma, seed) {
+  const { DT, J, B_FRIC, KP, KD, N } = SYS;
+  const T_PERIOD = N * DT;
+  const randn = makeNormalRNG(makePRNG(seed));
+
+  const t         = Array.from({length: N}, (_, k) => k * DT);
+  const theta_ref = t.map(ti =>  Math.sin(2*Math.PI*ti/T_PERIOD));
+  const omega_ref = t.map(ti => (2*Math.PI/T_PERIOD)*Math.cos(2*Math.PI*ti/T_PERIOD));
+
+  const theta  = new Float64Array(N);
+  const omega  = new Float64Array(N);
+  const torque = new Float64Array(N);
+
+  for (let k = 0; k < N-1; k++) {
+    let u = KP*(theta_ref[k]-theta[k]) + KD*(omega_ref[k]-omega[k]);
+    u = Math.max(-5, Math.min(5, u));
+    torque[k] = u;
+    const alpha  = (u - B_FRIC*omega[k]) / J;
+    omega[k+1]   = omega[k] + DT*alpha + randn(0.02);
+    theta[k+1]   = theta[k] + DT*omega[k];
+  }
+  torque[N-1] = torque[N-2];
+
+  const obs = Array.from(theta, v => v + randn(sigma));
+  return {
+    theta: Array.from(theta), omega: Array.from(omega),
+    theta_ref, omega_ref, obs,
+    torque: Array.from(torque), t, N, dt: DT,
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  JS 側カルマンフィルタ（2×2）
+// ─────────────────────────────────────────────────────────────────
+function runKalmanJS(obs, controls, R, Q_theta, Q_omega, P0 = 1.0) {
+  const { DT, J, B_FRIC } = SYS;
+  // A = [[1, DT], [0, 1 - B*DT/J]]
+  const A = [[1, DT], [0, 1 - B_FRIC * DT / J]];
+  const Bv = [0, DT / J];        // 入力ベクトル (2,)
+  // H = [1, 0]  (row vector)
+  const Q = [[Q_theta, 0], [0, Q_omega]];
+
+  // 2×2 行列演算ヘルパー
+  const mm = (A, B) => [
+    [A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],
+    [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]],
+  ];
+  const mT = M => [[M[0][0],M[1][0]],[M[0][1],M[1][1]]];
+  const madd = (A, B) => [[A[0][0]+B[0][0],A[0][1]+B[0][1]],[A[1][0]+B[1][0],A[1][1]+B[1][1]]];
+
+  let x = [obs[0], 0.0];
+  let P = [[P0, 0], [0, P0]];
+
+  const theta_est=[], omega_est=[], K_theta=[], K_omega=[], P_theta=[];
+
+  for (let i = 0; i < obs.length; i++) {
+    const u = controls[i];
+    // 予測
+    const xp = [
+      A[0][0]*x[0] + A[0][1]*x[1] + Bv[0]*u,
+      A[1][0]*x[0] + A[1][1]*x[1] + Bv[1]*u,
+    ];
+    const Pp = madd(mm(mm(A, P), mT(A)), Q);
+
+    // カルマンゲイン  K = Pp * H^T / S,  H=[1,0]
+    // Pp * H^T = Pp の第0列
+    const PpHt = [Pp[0][0], Pp[1][0]];
+    const S = Pp[0][0] + R;
+    const K = [PpHt[0] / S, PpHt[1] / S];
+
+    // 更新
+    const innov = obs[i] - xp[0];
+    x = [xp[0] + K[0]*innov, xp[1] + K[1]*innov];
+
+    // P = (I - K*H) * Pp  (H=[1,0])
+    P = [
+      [(1 - K[0])*Pp[0][0], (1 - K[0])*Pp[0][1]],
+      [    -K[1] *Pp[0][0], Pp[1][1] - K[1]*Pp[0][1]],
+    ];
+
+    theta_est.push(x[0]);
+    omega_est.push(x[1]);
+    K_theta.push(K[0]);
+    K_omega.push(K[1]);
+    P_theta.push(P[0][0]);
+  }
+
+  // RMSE
+  const N = obs.length;
+  const rmse = (est, true_) =>
+    Math.sqrt(est.reduce((s, v, i) => s + (v - true_[i])**2, 0) / N);
+
+  return { theta_est, omega_est, K_theta, K_omega, P_theta,
+           rmse_theta: rmse(theta_est, simData.theta),
+           rmse_omega: rmse(omega_est, simData.omega) };
+}
+
+// ─────────────────────────────────────────────────────────────────
+//  ローカル計算 & state
+// ─────────────────────────────────────────────────────────────────
+let simData     = null;
 let appData     = null;
 let animId      = null;
 let animStep    = null;
@@ -1286,26 +1417,23 @@ function getParams() {
   };
 }
 
-let fetchTimer = null;
-function schedFetch() {
+// KF パラメータだけ変わった場合：即時再計算
+function recomputeKF() {
+  if (!simData) return;
   stopAnim();
-  if (fetchTimer) clearTimeout(fetchTimer);
-  fetchTimer = setTimeout(fetchAndDraw, 80);
+  const p  = getParams();
+  const kf = runKalmanJS(simData.obs, simData.torque, p.R, p.Q_theta, p.Q_omega);
+  appData  = { ...simData, ...kf };
+  drawAll(appData.theta.length - 1);
 }
 
-async function fetchAndDraw() {
-  const p   = getParams();
-  const url = `/api/compute?R=${p.R}&Q_theta=${p.Q_theta}&Q_omega=${p.Q_omega}&sigma=${p.sigma}&seed=${p.seed}`;
-  document.getElementById('loading').classList.remove('hidden');
-  try {
-    const res = await fetch(url);
-    appData   = await res.json();
-  } catch (e) {
-    console.error('fetch error', e);
-    document.getElementById('loading').classList.add('hidden');
-    return;
-  }
-  document.getElementById('loading').classList.add('hidden');
+// sigma/seed が変わった場合：シミュレーションから再計算
+function computeAndDraw() {
+  stopAnim();
+  const p  = getParams();
+  simData  = simulateJoint(p.sigma, p.seed);
+  const kf = runKalmanJS(simData.obs, simData.torque, p.R, p.Q_theta, p.Q_omega);
+  appData  = { ...simData, ...kf };
   drawAll(appData.theta.length - 1);
 }
 
@@ -1578,17 +1706,24 @@ function updateStats(step) {
 // ─────────────────────────────────────────────────────────────────
 //  スライダー
 // ─────────────────────────────────────────────────────────────────
+// R / Q → JS 側で即時再計算（サーバー不要）
 [
-  { sid: 's-R',     vid: 'v-R',     d: 3 },
-  { sid: 's-Qt',    vid: 'v-Qt',    d: 4 },
-  { sid: 's-Qw',    vid: 'v-Qw',    d: 3 },
-  { sid: 's-sigma', vid: 'v-sigma', d: 3 },
+  { sid: 's-R',  vid: 'v-R',  d: 3 },
+  { sid: 's-Qt', vid: 'v-Qt', d: 4 },
+  { sid: 's-Qw', vid: 'v-Qw', d: 3 },
 ].forEach(({ sid, vid, d }) => {
   document.getElementById(sid).addEventListener('input', e => {
     document.getElementById(vid).textContent =
       parseFloat(e.target.value).toFixed(d);
-    schedFetch();
+    recomputeKF();
   });
+});
+
+// sigma → シミュレーション自体が変わるので再計算
+document.getElementById('s-sigma').addEventListener('input', e => {
+  document.getElementById('v-sigma').textContent =
+    parseFloat(e.target.value).toFixed(3);
+  computeAndDraw();
 });
 
 // ─────────────────────────────────────────────────────────────────
@@ -1596,8 +1731,7 @@ function updateStats(step) {
 // ─────────────────────────────────────────────────────────────────
 document.getElementById('btnReseed').addEventListener('click', () => {
   currentSeed = Math.floor(Math.random() * 1e9);
-  stopAnim();
-  fetchAndDraw();
+  computeAndDraw();
 });
 
 function stopAnim() {
@@ -1634,7 +1768,7 @@ window.addEventListener('resize', () => {
   if (appData) drawAll(appData.theta.length - 1);
 });
 
-fetchAndDraw();
+computeAndDraw();
 </script>
 </body>
 </html>
