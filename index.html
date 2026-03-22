@@ -20,6 +20,7 @@
       background: #ffffff;
       color: #0f172a;
       line-height: 1.65;
+      overflow-x: hidden;
     }
 
     .container {
@@ -391,6 +392,16 @@
     .details-body .fml {
       background: #ffffff;
       border-color: #bfdbfe;
+    }
+
+    /* ── MathJax overflow ── */
+    mjx-container {
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+    }
+    mjx-container[display="true"] {
+      display: block;
     }
 
     /* ── Footer ── */
