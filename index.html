@@ -347,6 +347,7 @@
     .co-amber  { background: #fffbeb; border-left: 3px solid #f59e0b; color: #92400e; }
     .co-purple { background: #f5f3ff; border-left: 3px solid #8b5cf6; color: #4c1d95; }
     .co-gray   { background: #f8fafc; border-left: 3px solid #94a3b8; color: #334155; }
+    .co-plain  { background: #f8fafc; color: #334155; }
 
     .param-table {
       width: 100%;
@@ -491,6 +492,7 @@
       .co-amber       { background: var(--amber-bg);  border-color: var(--amber);  color: #e3bc5a; }
       .co-purple      { background: var(--purple-bg); border-color: var(--purple); color: #d4a8ff; }
       .co-gray        { background: var(--bg-alt);    border-color: var(--border); color: var(--text-muted); }
+      .co-plain       { background: var(--bg-alt);    color: var(--text-muted); }
 
       summary         { background: var(--blue-bg); border-color: var(--blue-bd); color: var(--blue); }
       .details-body   { background: #0d1826; border-color: var(--blue-bd); color: #a5c8f5; }
@@ -1368,19 +1370,19 @@
     <div class="exp-grid exp-2col" style="margin-bottom:16px">
       <div class="exp-card">
         <h3>✅&ensp;KF が有効な条件</h3>
-        <div class="callout co-gray" style="margin-top:0">
+        <div class="callout co-plain" style="margin-top:0">
           <strong>① システムが線形である</strong><br>
           状態方程式 $\mathbf{x}_{k+1} = A\mathbf{x}_k + Bu_k$ と観測方程式 $z_k = H\mathbf{x}_k$ がともに線形であること。
         </div>
-        <div class="callout co-gray">
+        <div class="callout co-plain">
           <strong>② ノイズがガウス分布に従う</strong><br>
           プロセスノイズ $\mathbf{w}_k \sim \mathcal{N}(\mathbf{0}, Q)$，観測ノイズ $v_k \sim \mathcal{N}(0, R)$ の仮定が成立すること。この2条件下では KF は MVUE（最小分散不偏推定量）となる。
         </div>
-        <div class="callout co-gray">
+        <div class="callout co-plain">
           <strong>③ リアルタイム・再帰処理が必要</strong><br>
           KF は1ステップごとに $O(n^3)$（$n$ は状態次元）で処理できる再帰アルゴリズムだ。データが順次到着する組み込み・制御系に適している。
         </div>
-        <div class="callout co-gray">
+        <div class="callout co-plain">
           <strong>④ 観測できない状態変数を推定したい</strong><br>
           今回の例のように，角速度 $\omega$ は直接計測できないが，運動方程式を内部モデルとして利用することで推定できる。センサフュージョンや状態観測器として有効だ。
         </div>
@@ -1388,19 +1390,19 @@
 
       <div class="exp-card">
         <h3>⚠️&ensp;KF が向いていない状況</h3>
-        <div class="callout co-gray" style="margin-top:0">
+        <div class="callout co-plain" style="margin-top:0">
           <strong>非線形システム</strong><br>
           $f(\mathbf{x})$ や $h(\mathbf{x})$ が非線形の場合，通常の KF は最適でなくなる。→ EKF・UKF を検討する。
         </div>
-        <div class="callout co-gray">
+        <div class="callout co-plain">
           <strong>非ガウスノイズ・マルチモーダル分布</strong><br>
           衝突・スリップなど突発的な外乱，あるいは複数仮説が並立する状況。→ パーティクルフィルタを検討する。
         </div>
-        <div class="callout co-gray">
+        <div class="callout co-plain">
           <strong>モデルが不明・不確か</strong><br>
           $A$・$B$ 行列が大きく変化するか，そもそも物理モデルが立てられない場合。→ 機械学習ベースの推定や適応フィルタを検討する。
         </div>
-        <div class="callout co-gray">
+        <div class="callout co-plain">
           <strong>高次元状態空間</strong><br>
           状態次元 $n$ が大きいと $P_k \in \mathbb{R}^{n \times n}$ の更新が $O(n^3)$ でボトルネックになる。→ アンサンブルカルマンフィルタ（EnKF）やスパース近似を検討する。
         </div>
