@@ -15,136 +15,169 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background: #0f1117;
-      color: #e0e0e0;
-      min-height: 100vh;
-      padding: 24px 20px;
+      font-family: "Helvetica Neue", Arial, "Hiragino Sans", sans-serif;
+      background: #ffffff;
+      color: #0f172a;
+      line-height: 1.6;
     }
 
-    h1 {
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
-    }
-    .subtitle {
-      text-align: center;
-      font-size: 0.82rem;
-      color: #666;
-      margin-bottom: 24px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 290px 1fr;
-      gap: 20px;
-      max-width: 1200px;
+    .container {
+      max-width: 960px;
       margin: 0 auto;
+      padding: 0 24px;
     }
 
-    /* ── panel ── */
-    .panel {
-      background: #1a1d27;
-      border: 1px solid #2a2d3e;
-      border-radius: 12px;
-      padding: 18px;
-    }
-    .panel h2 {
-      font-size: 0.72rem;
+    /* ── Section ── */
+    .section      { padding: 64px 0; }
+    .section-alt  { background: #f8fafc; }
+
+    .section-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #555;
-      margin-bottom: 16px;
+      letter-spacing: 0.14em;
+      color: #2563eb;
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .section-desc {
+      font-size: 0.86rem;
+      color: #64748b;
+      margin-bottom: 32px;
+      max-width: 640px;
+      line-height: 1.7;
     }
 
-    /* ── sliders ── */
-    .param-group { margin-bottom: 16px; }
-    .param-label {
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid #f1f5f9;
+      padding: 56px 0 48px;
+      text-align: center;
+    }
+    .header-badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: #2563eb;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+    header .lead {
+      font-size: 0.9rem;
+      color: #64748b;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    header .lead strong { color: #0f172a; }
+
+    /* ── Problem cards ── */
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .prob-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 22px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .prob-card .icon {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .prob-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 8px; }
+    .prob-card p  { font-size: 0.78rem; color: #64748b; line-height: 1.7; }
+
+    /* ── Simulator ── */
+    .sys-info-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+    .sys-info-bar span { white-space: nowrap; }
+    .sys-info-bar .lbl { color: #94a3b8; }
+    .sys-info-bar .val { font-weight: 600; color: #374151; }
+
+    .param-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .param-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .param-head {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
-    .param-name { font-size: 0.88rem; font-weight: 500; }
-    .param-name em { font-style: italic; color: #7eb3ff; }
-    .param-val { font-size: 0.88rem; font-weight: 700; color: #7eb3ff; }
-    .param-desc { font-size: 0.69rem; color: #555; line-height: 1.4; margin-bottom: 5px; }
-    input[type=range] { width: 100%; accent-color: #7eb3ff; cursor: pointer; }
+    .param-name { font-size: 0.76rem; font-weight: 600; color: #374151; }
+    .param-val  { font-size: 0.76rem; font-weight: 700; color: #2563eb; }
+    .param-hint { font-size: 0.67rem; color: #94a3b8; margin-bottom: 7px; line-height: 1.4; }
+    input[type=range] { width: 100%; accent-color: #2563eb; cursor: pointer; }
 
-    /* ── system info ── */
-    .sysinfo {
-      background: #12141e;
-      border: 1px solid #1e2235;
-      border-radius: 8px;
-      padding: 9px 11px;
-      font-size: 0.68rem;
-      color: #555;
-      line-height: 1.8;
-      margin-bottom: 14px;
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
     }
-    .sysinfo span { color: #888; }
-
-    /* ── buttons ── */
-    .btn-row { display: flex; gap: 8px; margin-top: 14px; }
     button {
-      flex: 1; padding: 8px 4px;
-      border: none; border-radius: 8px;
-      font-size: 0.8rem; font-weight: 600;
-      cursor: pointer; transition: opacity .15s;
-    }
-    button:hover { opacity: .8; }
-    #btnReseed  { background: #252840; color: #9ba8ff; }
-    #btnAnimate { background: #1c3d2a; color: #6dffaa; }
-    #btnAnimate.running { background: #3d1c1c; color: #ff8a8a; }
-
-    /* ── legend ── */
-    .legend { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
-    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.76rem; color: #aaa; }
-    .l-line { width: 26px; height: 3px; border-radius: 2px; flex-shrink: 0; }
-    .l-dot  { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-    .l-band { width: 26px; height: 10px; border-radius: 3px; flex-shrink: 0; }
-    .l-dashed {
-      width: 26px; height: 3px; border-radius: 0; flex-shrink: 0;
-      background: repeating-linear-gradient(90deg, #adb5bd 0 5px, transparent 5px 9px);
-    }
-
-    /* ── formula ── */
-    .formula {
-      margin-top: 14px;
-      background: #12141e;
-      border: 1px solid #252840;
+      padding: 9px 20px;
+      border: none;
       border-radius: 8px;
-      padding: 11px 12px;
-      font-size: 0.72rem;
-      line-height: 1.6;
-      color: #888;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s, transform .1s;
     }
-    .formula .step { display: block; color: #7eb3ff; font-weight: 700; margin-top: 8px; margin-bottom: 2px; }
-    .formula .hl   { color: #ffe07a; }
-    .formula .comment { color: #555; font-size: 0.65rem; }
-    .formula .MJX-TEX { font-size: 0.95rem; }
-    /* MathJax のブロック数式を中央寄せ・コンパクトに */
-    .formula mjx-container[display="true"] {
-      margin: 4px 0 !important;
-    }
+    button:hover { opacity: .85; transform: translateY(-1px); }
+    #btnReseed  { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+    #btnAnimate { background: #2563eb; color: #fff; }
+    #btnAnimate.running { background: #dc2626; }
 
-    /* ── vis area ── */
-    .vis-area { display: flex; flex-direction: column; gap: 12px; }
-
-    .mid-row {
-      display: grid;
-      grid-template-columns: 210px 1fr;
-      gap: 12px;
-    }
-
-    /* ── canvas ── */
-    .canvas-wrap {
-      background: #12141e;
-      border: 1px solid #2a2d3e;
+    /* ── Chart cards ── */
+    .chart-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
       overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
       position: relative;
     }
     canvas { display: block; width: 100%; }
@@ -152,461 +185,1056 @@
     #loading {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem; color: #555;
-      background: #12141e;
+      font-size: 0.8rem; color: #94a3b8;
+      background: #fff;
       pointer-events: none;
     }
     #loading.hidden { display: none; }
 
-    /* ── stat cards ── */
-    .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
-    .stat-card {
-      background: #1a1d27;
-      border: 1px solid #2a2d3e;
+    .chart-legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 9px 14px;
+      border-top: 1px solid #f1f5f9;
+      background: #fafafa;
+    }
+    .leg-item { display: flex; align-items: center; gap: 6px; font-size: 0.71rem; color: #64748b; }
+    .l-line   { width: 20px; height: 2px; border-radius: 1px; flex-shrink: 0; }
+    .l-dot    { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .l-dash   {
+      width: 20px; height: 2px; flex-shrink: 0;
+      background: repeating-linear-gradient(90deg, #94a3b8 0 4px, transparent 4px 7px);
+    }
+
+    .mid-row {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .mid-row .chart-card { margin-bottom: 0; }
+
+    .insight-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
       border-radius: 10px;
-      padding: 11px;
-      text-align: center;
-    }
-    .stat-label { font-size: 0.64rem; color: #555; margin-bottom: 5px; line-height: 1.4; }
-    .stat-value { font-size: 1.15rem; font-weight: 700; color: #7eb3ff; }
-
-    /* ── insight box ── */
-    .insight {
-      background: #12231a;
-      border: 1px solid #1a3d28;
-      border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 0.73rem;
-      color: #6dffaa;
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    @media (max-width: 860px) {
-      .layout { grid-template-columns: 1fr; }
-      .mid-row { grid-template-columns: 1fr; }
-      .stats-row { grid-template-columns: 1fr 1fr; }
-      .exp-grid-3 { grid-template-columns: 1fr; }
-      .exp-grid-2 { grid-template-columns: 1fr; }
-    }
-
-    /* ── 解説セクション ── */
-    .explanation {
-      max-width: 1200px;
-      margin: 28px auto 0;
-    }
-    .exp-section-title {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #555;
+      padding: 11px 16px;
+      font-size: 0.8rem;
+      color: #065f46;
       margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #1e2235;
+      line-height: 1.55;
     }
-    .exp-grid { display: grid; gap: 16px; margin-bottom: 16px; }
-    .exp-grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .exp-grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .stat-label { font-size: 0.64rem; color: #94a3b8; margin-bottom: 6px; line-height: 1.45; }
+    .stat-value { font-size: 1.2rem; font-weight: 700; color: #2563eb; }
+
+    /* ── Explanation sections ── */
+    .exp-grid   { display: grid; gap: 16px; }
+    .exp-2col   { grid-template-columns: repeat(2, 1fr); }
+    .exp-3col   { grid-template-columns: repeat(3, 1fr); }
 
     .exp-card {
-      background: #1a1d27;
-      border: 1px solid #2a2d3e;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
-      padding: 20px 22px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
+    .exp-card.full { grid-column: 1 / -1; }
+
     .exp-card h3 {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 700;
-      color: #fff;
-      margin-bottom: 12px;
+      color: #0f172a;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .exp-card h3 .icon {
-      font-size: 1rem;
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px; height: 22px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
     }
     .exp-card p {
-      font-size: 0.79rem;
-      color: #999;
+      font-size: 0.8rem;
+      color: #475569;
       line-height: 1.75;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .exp-card p:last-child { margin-bottom: 0; }
 
-    .callout {
-      border-radius: 0 6px 6px 0;
-      padding: 9px 13px;
+    .fml {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 10px 0;
       font-size: 0.77rem;
+      color: #475569;
+      line-height: 1.8;
+    }
+    .fml .lbl {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+
+    .callout {
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 0.78rem;
       line-height: 1.65;
       margin: 10px 0;
     }
-    .callout-blue  { background:#0d1a2e; border-left:3px solid #4dabf7; color:#90c8ff; }
-    .callout-green { background:#0d1f15; border-left:3px solid #51cf66; color:#8ae6b0; }
-    .callout-amber { background:#1f1800; border-left:3px solid #ffa94d; color:#ffd08a; }
-    .callout-purple{ background:#180d2e; border-left:3px solid #cc5de8; color:#d8a4f5; }
+    .co-blue   { background: #eff6ff; border-left: 3px solid #3b82f6; color: #1e40af; }
+    .co-green  { background: #ecfdf5; border-left: 3px solid #10b981; color: #065f46; }
+    .co-amber  { background: #fffbeb; border-left: 3px solid #f59e0b; color: #92400e; }
+    .co-purple { background: #f5f3ff; border-left: 3px solid #8b5cf6; color: #4c1d95; }
 
     .param-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.76rem;
+      font-size: 0.77rem;
       margin-top: 8px;
     }
     .param-table th {
       text-align: left;
-      color: #555;
+      color: #64748b;
       font-weight: 600;
-      padding: 4px 8px 6px 0;
-      border-bottom: 1px solid #1e2235;
+      padding: 6px 10px 8px 0;
+      border-bottom: 2px solid #e2e8f0;
     }
     .param-table td {
-      padding: 6px 8px 6px 0;
-      color: #999;
-      border-bottom: 1px solid #14172a;
+      padding: 8px 10px 8px 0;
+      color: #475569;
+      border-bottom: 1px solid #f1f5f9;
       vertical-align: top;
-      line-height: 1.5;
+      line-height: 1.55;
     }
-    .param-table td:first-child { color: #7eb3ff; font-weight: 700; white-space: nowrap; }
+    .param-table td:first-child {
+      color: #2563eb;
+      font-weight: 700;
+      font-style: italic;
+      white-space: nowrap;
+    }
 
-    .deriv-block {
-      background: #12141e;
-      border: 1px solid #1e2235;
+    /* ── 途中式（expandable） ── */
+    details { margin: 10px 0; }
+    summary {
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #2563eb;
+      padding: 7px 13px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
       border-radius: 8px;
-      padding: 10px 14px;
-      margin: 10px 0;
-      font-size: 0.78rem;
-      color: #888;
-      line-height: 1.7;
+      user-select: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    .deriv-block .label {
-      display: inline-block;
-      font-size: 0.65rem;
-      color: #444;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 4px;
+    summary::-webkit-details-marker { display: none; }
+    summary .arrow { font-size: 0.6rem; transition: transform .2s; }
+    details[open] summary .arrow { transform: rotate(90deg); }
+    .details-body {
+      background: #f0f7ff;
+      border: 1px solid #bfdbfe;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      padding: 14px 16px;
+      font-size: 0.77rem;
+      color: #1e3a5f;
+      line-height: 1.9;
+    }
+    .details-body .fml {
+      background: #ffffff;
+      border-color: #bfdbfe;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #f1f5f9;
+      padding: 28px 0;
+      text-align: center;
+      font-size: 0.74rem;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 760px) {
+      header h1 { font-size: 1.6rem; }
+      .card-grid-3, .param-grid, .exp-3col { grid-template-columns: 1fr; }
+      .exp-2col { grid-template-columns: 1fr; }
+      .mid-row  { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
 
-<h1>ロボット関節モータ — カルマンフィルタ推定</h1>
-<p class="subtitle">エンコーダで<strong>角度のみ</strong>観測し、カルマンフィルタで<strong>角度 + 角速度</strong>を同時推定する（計算は Python / Flask）</p>
+<!-- ════════════════════════════════════════════
+     Header
+     ════════════════════════════════════════════ -->
+<header>
+  <span class="header-badge">Interactive Learning</span>
+  <h1>ロボット関節モータ<br>カルマンフィルタ推定</h1>
+  <p class="lead">
+    エンコーダで<strong>角度のみ</strong>を観測しながら，<br>
+    カルマンフィルタが<strong>角度 + 角速度を同時推定</strong>するしくみをインタラクティブに学ぶ
+  </p>
+</header>
 
-<div class="layout">
 
-  <!-- ── 左：コントロール ── -->
-  <div>
-    <div class="panel">
-      <h2>システム（固定）</h2>
-      <div class="sysinfo">
-        慣性モーメント J = <span>0.1 kg·m²</span><br>
-        粘性摩擦 b = <span>0.5 N·m·s/rad</span><br>
-        PD ゲイン Kp = <span>10</span>,  Kd = <span>2</span><br>
-        サンプリング dt = <span>0.02 s (50 Hz)</span>
+<!-- ════════════════════════════════════════════
+     Section 1 — 問題設定
+     ════════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <p class="section-tag">Problem Setup</p>
+    <h2 class="section-title">なぜカルマンフィルタが必要か</h2>
+    <p class="section-desc">
+      ロボット関節の PD 制御には角速度 $\omega$ が必要です。
+      しかし一般的なエンコーダが測れるのは角度 $\theta$ だけです。
+    </p>
+    <div class="card-grid-3">
+      <div class="prob-card">
+        <span class="icon">⚙️</span>
+        <h3>制御の問題</h3>
+        <p>
+          PD 制御則 $\tau = K_p e_\theta + K_d e_\omega$ の微分項には
+          <strong>角速度 $\omega$</strong> が必要です。
+          しかしエンコーダは角度しか返しません。
+        </p>
       </div>
-
-      <h2>カルマンフィルタ パラメータ</h2>
-
-      <div class="param-group">
-        <div class="param-label">
-          <span class="param-name">観測ノイズ分散 <em>R</em></span>
-          <span class="param-val" id="v-R">0.010</span>
-        </div>
-        <p class="param-desc">エンコーダの精度。大 → センサを信じない → 推定が滑らか</p>
-        <input type="range" id="s-R" min="0.001" max="1.0" step="0.001" value="0.01">
+      <div class="prob-card">
+        <span class="icon">⚠️</span>
+        <h3>素朴な解法の問題</h3>
+        <p>
+          数値微分 $\hat\omega \approx (\theta_k - \theta_{k-1})/\Delta t$ は
+          シンプルですが，観測ノイズが微分で増幅され，
+          高周波ノイズが大きく乗ってしまいます。
+        </p>
       </div>
-
-      <div class="param-group">
-        <div class="param-label">
-          <span class="param-name">角度プロセスノイズ <em>Q<sub>θ</sub></em></span>
-          <span class="param-val" id="v-Qt">0.0010</span>
-        </div>
-        <p class="param-desc">角度モデルの不確かさ</p>
-        <input type="range" id="s-Qt" min="0.0001" max="0.1" step="0.0001" value="0.001">
-      </div>
-
-      <div class="param-group">
-        <div class="param-label">
-          <span class="param-name">角速度プロセスノイズ <em>Q<sub>ω</sub></em></span>
-          <span class="param-val" id="v-Qw">0.100</span>
-        </div>
-        <p class="param-desc">角速度モデルの不確かさ。大 → 速度推定が観測に素早く反応</p>
-        <input type="range" id="s-Qw" min="0.001" max="2.0" step="0.001" value="0.1">
-      </div>
-
-      <div class="param-group">
-        <div class="param-label">
-          <span class="param-name">センサノイズ標準偏差 <em>σ</em></span>
-          <span class="param-val" id="v-sigma">0.05</span>
-        </div>
-        <p class="param-desc">シミュレーション上のエンコーダノイズ量（赤点のブレ幅）</p>
-        <input type="range" id="s-sigma" min="0.005" max="0.3" step="0.005" value="0.05">
-      </div>
-
-      <div class="btn-row">
-        <button id="btnReseed">🔄 再生成</button>
-        <button id="btnAnimate">▶ アニメ</button>
-      </div>
-
-      <!-- 凡例 -->
-      <div class="legend">
-        <div class="legend-item">
-          <div class="l-dashed"></div>目標軌道 θ_ref
-        </div>
-        <div class="legend-item">
-          <div class="l-line" style="background:#4dabf7"></div>真値 θ / ω（現実には不明）
-        </div>
-        <div class="legend-item">
-          <div class="l-dot" style="background:#ff6b6b;opacity:.7"></div>観測値（エンコーダ）
-        </div>
-        <div class="legend-item">
-          <div class="l-line" style="background:#51cf66"></div>カルマン推定値
-        </div>
-        <div class="legend-item">
-          <div class="l-band" style="background:rgba(81,207,102,.18)"></div>推定誤差帯 ±√P<sub>θ</sub>
-        </div>
-      </div>
-
-      <!-- 数式 -->
-      <div class="formula">
-        <span class="comment">状態: $\mathbf{x} = [\theta,\, \omega]^\top$,&ensp;観測: $z = \theta$</span>
-
-        <span class="step">① 予測</span>
-        $$\hat{\mathbf{x}}^-_k = A\hat{\mathbf{x}}_{k-1} + Bu_k$$
-        $$P^-_k = AP_{k-1}A^\top + Q$$
-
-        <span class="step">② カルマンゲイン</span>
-        $$K_k = P^-_k H^\top \!\left(HP^-_k H^\top + R\right)^{-1}$$
-
-        <span class="step">③ 更新</span>
-        $$\hat{\mathbf{x}}_k = \hat{\mathbf{x}}^-_k + K_k(z_k - H\hat{\mathbf{x}}^-_k)$$
-        $$P_k = (I - K_k H)\,P^-_k$$
-
-        <span class="comment" style="margin-top:6px;display:block">
-          $A = \begin{bmatrix}1 & \Delta t \\ 0 & 1{-}\frac{b\Delta t}{J}\end{bmatrix}$,&ensp;
-          $B = \begin{bmatrix}0 \\ \frac{\Delta t}{J}\end{bmatrix}$,&ensp;
-          $H = \begin{bmatrix}1 & 0\end{bmatrix}$
-        </span>
+      <div class="prob-card">
+        <span class="icon">✅</span>
+        <h3>カルマンフィルタの解決策</h3>
+        <p>
+          物理モデル（運動方程式）を内部に持ち，
+          角度観測列から角速度を<strong>最適に間接推定</strong>します。
+          ノイズ増幅の問題を回避できます。
+        </p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ── 右：可視化 ── -->
-  <div class="vis-area">
 
-    <!-- 角度グラフ -->
-    <div class="canvas-wrap">
-      <canvas id="mainCanvas" data-css-height="260" height="260"></canvas>
-      <div id="loading">読み込み中…</div>
+<!-- ════════════════════════════════════════════
+     Section 2 — 状態空間モデルの構築
+     ════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <p class="section-tag">State-Space Model</p>
+    <h2 class="section-title">状態空間モデルの導出</h2>
+    <p class="section-desc">
+      KF の内部モデル（$A$，$B$，$H$ 行列）は，物理の運動方程式から体系的に導出できます。
+    </p>
+
+    <div class="exp-grid exp-3col">
+      <div class="exp-card">
+        <h3>📖&ensp;連続時間モデル</h3>
+        <p>慣性モーメント $J$，粘性摩擦 $b$ の回転系の運動方程式：</p>
+        <div class="fml">
+          $$J\dot\omega = \tau - b\omega, \quad \dot\theta = \omega$$
+        </div>
+        <p>整理すると：</p>
+        <div class="fml">
+          $$\dot\omega = \frac{\tau}{J} - \frac{b}{J}\omega$$
+        </div>
+        <p>これを<strong>状態方程式</strong> $\dot{\mathbf{x}} = A_c\mathbf{x} + B_c u$ の形に書けます。</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>🔢&ensp;前進オイラー離散化</h3>
+        <p>$\dot{x} \approx (x_{k+1}-x_k)/\Delta t$ として近似すると：</p>
+        <div class="fml">
+          <span class="lbl">角度</span>
+          $$\theta_{k+1} = \theta_k + \Delta t\,\omega_k$$
+        </div>
+        <div class="fml">
+          <span class="lbl">角速度</span>
+          $$\omega_{k+1} = \!\left(1 - \frac{b\Delta t}{J}\right)\!\omega_k + \frac{\Delta t}{J}\tau_k$$
+        </div>
+        <div class="callout co-amber">
+          $(2,2)$ 要素 $1 - b\Delta t/J = 0.9$ は，1ステップごとに速度が 10% 減衰することを意味します。
+        </div>
+      </div>
+
+      <div class="exp-card">
+        <h3>📊&ensp;行列形式</h3>
+        <p>$\mathbf{x}_{k+1} \in \mathbb{R}^2 = A\mathbf{x}_k + B\tau_k + \mathbf{w}_k$ にまとめると：</p>
+        <div class="fml">
+          <span class="lbl">$A \in \mathbb{R}^{2\times 2}$，$B \in \mathbb{R}^{2\times 1}$</span>
+          $$A = \begin{bmatrix}1 & \Delta t \\ 0 & 1{-}\dfrac{b\Delta t}{J}\end{bmatrix},\quad
+            B = \begin{bmatrix}0 \\ \dfrac{\Delta t}{J}\end{bmatrix}$$
+        </div>
+        <p>観測方程式 $z_k \in \mathbb{R} = H\mathbf{x}_k + v_k$：</p>
+        <div class="fml">
+          <span class="lbl">$H \in \mathbb{R}^{1\times 2}$（行ベクトル）</span>
+          $$H = \begin{bmatrix}1 & 0\end{bmatrix} \quad \text{（角度のみ取り出す）}$$
+        </div>
+        <p style="font-size:0.73rem;color:#94a3b8;margin-top:6px">
+          $\mathbf{w}_k \in \mathbb{R}^2 \sim \mathcal{N}(\mathbf{0},\,Q)$：プロセスノイズ（ベクトル）<br>
+          $v_k \in \mathbb{R} \sim \mathcal{N}(0,\,R)$：観測ノイズ（スカラー）
+        </p>
+      </div>
     </div>
-
-    <!-- 中段：関節可視化 + 角速度グラフ -->
-    <div class="mid-row">
-      <div class="canvas-wrap">
-        <canvas id="armCanvas" data-css-height="210" height="210"></canvas>
-      </div>
-      <div class="canvas-wrap">
-        <canvas id="velCanvas" data-css-height="210" height="210"></canvas>
-      </div>
-    </div>
-
-    <!-- カルマンゲイン -->
-    <div class="canvas-wrap">
-      <canvas id="gainCanvas" data-css-height="120" height="120"></canvas>
-    </div>
-
-    <!-- 観測不可の洞察 -->
-    <div class="insight">
-      角速度 ω はエンコーダで<strong>直接観測できない</strong>。
-      カルマンフィルタは運動方程式（A 行列）を使って ω を間接的に推定する。
-    </div>
-
-    <!-- 統計 -->
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-label">RMSE 角度 θ<br>[rad]</div>
-        <div class="stat-value" id="st-rmse-t">—</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">RMSE 角速度 ω<br>[rad/s]</div>
-        <div class="stat-value" id="st-rmse-w">—</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">カルマンゲイン<br>K<sub>θ</sub></div>
-        <div class="stat-value" id="st-Kt">—</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">推定誤差分散<br>P<sub>θ</sub></div>
-        <div class="stat-value" id="st-Pt">—</div>
-      </div>
-    </div>
-
   </div>
-</div>
+</section>
 
-<!-- ════════════════════════════════════════════════════════════════
-     解説セクション
-     ════════════════════════════════════════════════════════════════ -->
-<section class="explanation">
-  <p class="exp-section-title">カルマンフィルタ 解説</p>
 
-  <!-- Row 1: 3カラム -->
-  <div class="exp-grid exp-grid-3">
+<!-- ════════════════════════════════════════════
+     Section 3 — カルマンフィルタのアルゴリズム
+     ════════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <p class="section-tag">Algorithm</p>
+    <h2 class="section-title">カルマンフィルタの仕組み</h2>
+    <p class="section-desc">
+      「予測」と「更新」の 2 ステップを繰り返すアルゴリズムです。
+      まず各記号の次元を確認してから式を読むと理解しやすくなります。
+    </p>
 
-    <!-- Card 1: カルマンフィルタとは -->
-    <div class="exp-card">
-      <h3><span class="icon">🔍</span>カルマンフィルタとは</h3>
+    <!-- 事前 / 事後 の説明 -->
+    <div class="exp-card full" style="margin-bottom:16px; border-left: 4px solid #2563eb;">
+      <h3>📌&ensp;記号の読み方：$\hat{\mathbf{x}}^-_k$ と $\hat{\mathbf{x}}_k$ の違い</h3>
       <p>
-        カルマンフィルタ（KF）は「<strong>物理モデルによる予測</strong>」と「<strong>センサ観測による補正</strong>」を
-        交互に繰り返すことで，ノイズの多い環境でも状態を最適に推定するアルゴリズムです。
+        カルマンフィルタでは，同じ時刻 $k$ に「センサを使う前」と「センサを使った後」の 2 つの推定値が存在します。
+        この区別を上付き $^-$ で表します。
       </p>
-      <div class="callout callout-blue">
-        システムが<strong>線形</strong>かつノイズが<strong>ガウス分布</strong>に従う場合，
-        KF は最小分散推定（MMSE）の意味で<em>最適</em>な推定器になります。
+      <div style="overflow-x:auto; margin: 12px 0;">
+        <table class="param-table">
+          <tr>
+            <th>記号</th>
+            <th>呼び名</th>
+            <th>タイミング</th>
+            <th>意味</th>
+          </tr>
+          <tr>
+            <td>$\hat{\mathbf{x}}^-_k,\; P^-_k$</td>
+            <td>事前推定（a priori）</td>
+            <td>時刻 $k$ のセンサ観測を<strong>使う前</strong></td>
+            <td>前ステップの結果と物理モデルだけで予測した値</td>
+          </tr>
+          <tr>
+            <td>$\hat{\mathbf{x}}_k,\; P_k$</td>
+            <td>事後推定（a posteriori）</td>
+            <td>時刻 $k$ のセンサ観測を<strong>使った後</strong></td>
+            <td>予測をセンサ情報で補正した値（最終的な推定結果）</td>
+          </tr>
+        </table>
       </div>
-      <p>
-        不確かさの大きさは共分散行列 $P_k$ で管理されます。
-        $P_k$ が小さいほど推定値への信頼度が高く，カルマンゲイン $K_k$ も小さくなって
-        センサ情報の重みが下がります。
+      <p>1 ステップの流れは以下のとおりです：</p>
+      <div class="fml" style="text-align:center; font-size:0.82rem; line-height:2.4">
+        $$\underbrace{\hat{\mathbf{x}}_{k-1},\; P_{k-1}}_{\text{前ステップの事後推定}}
+          \xrightarrow{\text{①予測（モデルのみ）}}
+          \underbrace{\hat{\mathbf{x}}^-_k,\; P^-_k}_{\substack{\text{事前推定} \\ \text{（$^-$ あり）}}}
+          \xrightarrow{\text{②更新（センサ使用）}}
+          \underbrace{\hat{\mathbf{x}}_k,\; P_k}_{\substack{\text{事後推定} \\ \text{（$^-$ なし）}}}$$
+      </div>
+      <div class="callout co-amber" style="margin-top:10px">
+        <strong>よくある混乱：</strong>
+        $\hat{\mathbf{x}}^-_k$ の $^-$ は「マイナス（符号）」ではなく，
+        「<strong>更新前（before update）</strong>」を意味する慣習的な記号です。
+        $P^-_k \geq P_k$ となるため，大小関係としては $^-$ 付きの方が不確かさが大きい（悪い）推定です。
+      </div>
+
+      <p style="margin-top:10px">
+        コード上では次の変数名に対応しています：
       </p>
-      <div class="callout callout-green">
-        <strong>イノベーション</strong>（新情報）$y_k = z_k - H\hat{\mathbf{x}}^-_k$ は
-        「モデル予測と実観測のズレ」です。これが大きいほど推定を大きく修正します。
+      <div class="fml">
+        <span class="lbl">server.py との対応</span>
+        $$\hat{\mathbf{x}}^-_k \leftrightarrow \texttt{x{\_}pred}, \quad
+          P^-_k \leftrightarrow \texttt{P{\_}pred}, \quad
+          \hat{\mathbf{x}}_k \leftrightarrow \texttt{x}, \quad
+          P_k \leftrightarrow \texttt{P}$$
       </div>
     </div>
 
-    <!-- Card 2: なぜKFが必要か -->
-    <div class="exp-card">
-      <h3><span class="icon">⚙️</span>なぜこの問題に必要か</h3>
-      <p>
-        ロボット関節の PD 制御では微分項 $K_d \dot{\theta}$ のために<strong>角速度 $\omega$</strong> が必要です。
-        しかし一般的な関節エンコーダが測れるのは<strong>角度 $\theta$ のみ</strong>です。
-      </p>
-      <div class="callout callout-amber">
-        <strong>素朴な解決策：数値微分</strong><br>
-        $\hat{\omega}_k \approx (\theta_k - \theta_{k-1}) / \Delta t$<br>
-        → 観測ノイズが微分で増幅され，高周波ノイズが大きくなる問題がある。
+    <!-- 次元定義テーブル -->
+    <div class="exp-card full" style="margin-bottom:16px">
+      <h3>📐&ensp;記号と次元の定義（本シミュレーターの場合：状態数 $n=2$，観測数 $m=1$）</h3>
+      <div style="overflow-x:auto">
+        <table class="param-table">
+          <tr>
+            <th style="width:90px">記号</th>
+            <th style="width:140px">次元・型</th>
+            <th>意味・値</th>
+          </tr>
+          <tr>
+            <td>$\mathbf{x}_k$</td>
+            <td>$\mathbb{R}^{2}$（列ベクトル）</td>
+            <td>状態ベクトル $[\theta_k,\;\omega_k]^\top$：角度と角速度</td>
+          </tr>
+          <tr>
+            <td>$u_k$</td>
+            <td>$\mathbb{R}$（スカラー）</td>
+            <td>制御入力（トルク指令）$[\mathrm{N\cdot m}]$</td>
+          </tr>
+          <tr>
+            <td>$z_k$</td>
+            <td>$\mathbb{R}$（スカラー）</td>
+            <td>観測値（エンコーダ角度）$[\mathrm{rad}]$</td>
+          </tr>
+          <tr>
+            <td>$A$</td>
+            <td>$\mathbb{R}^{2\times 2}$（行列）</td>
+            <td>状態遷移行列（離散化された運動方程式）</td>
+          </tr>
+          <tr>
+            <td>$B$</td>
+            <td>$\mathbb{R}^{2\times 1}$（列ベクトル）</td>
+            <td>制御入力行列 $[0,\;\Delta t/J]^\top$</td>
+          </tr>
+          <tr>
+            <td>$H$</td>
+            <td>$\mathbb{R}^{1\times 2}$（行ベクトル）</td>
+            <td>観測行列 $[1,\;0]$：角度のみ取り出す</td>
+          </tr>
+          <tr>
+            <td>$Q$</td>
+            <td>$\mathbb{R}^{2\times 2}$（正定値対称行列）</td>
+            <td>プロセスノイズ共分散 $\mathrm{diag}(Q_\theta,\,Q_\omega)$</td>
+          </tr>
+          <tr>
+            <td>$R$</td>
+            <td>$\mathbb{R}$（正のスカラー）</td>
+            <td>観測ノイズ分散（観測が 1 次元なのでスカラー）</td>
+          </tr>
+          <tr>
+            <td>$P_k,\,P^-_k$</td>
+            <td>$\mathbb{R}^{2\times 2}$（正定値対称行列）</td>
+            <td>推定誤差共分散行列</td>
+          </tr>
+          <tr>
+            <td>$K_k$</td>
+            <td>$\mathbb{R}^{2\times 1}$（列ベクトル）</td>
+            <td>カルマンゲイン：$[K_\theta,\;K_\omega]^\top$</td>
+          </tr>
+          <tr>
+            <td>$\mathbf{w}_k$</td>
+            <td>$\mathbb{R}^{2}$（列ベクトル）</td>
+            <td>プロセスノイズ $\sim\mathcal{N}(\mathbf{0},\,Q)$</td>
+          </tr>
+          <tr>
+            <td>$v_k$</td>
+            <td>$\mathbb{R}$（スカラー）</td>
+            <td>観測ノイズ $\sim\mathcal{N}(0,\,R)$</td>
+          </tr>
+          <tr>
+            <td>$I$</td>
+            <td>$\mathbb{R}^{2\times 2}$（行列）</td>
+            <td>$2\times 2$ 単位行列</td>
+          </tr>
+        </table>
       </div>
-      <p>
-        カルマンフィルタは運動方程式（$A$ 行列）を内部モデルとして持ち，
-        角度の観測列から角速度を<strong>間接的かつ最適に推定</strong>します。
-        上の「角速度グラフ」で，観測なしに真値を追跡できていることを確認してください。
-      </p>
-      <div class="callout callout-green">
-        これが KF の最大の強みの一つ：<strong>観測できない状態量の推定</strong>（オブザーバとしての機能）
+      <div class="callout co-amber" style="margin-top:12px">
+        <strong>よくある混乱ポイント：</strong>
+        $Q \in \mathbb{R}^{2\times 2}$ は<strong>行列</strong>（状態が 2 次元のため），
+        $R \in \mathbb{R}$ は<strong>スカラー</strong>（観測が 1 次元のため）。
+        一般に観測が $m$ 次元なら $R \in \mathbb{R}^{m\times m}$ の行列になります。
+        また $K_k \in \mathbb{R}^{2\times 1}$ はベクトルであり，
+        各行が「角度の観測でどれだけ角度・角速度を補正するか」を表します。
       </div>
     </div>
 
-    <!-- Card 3: 状態空間モデルの導出 -->
-    <div class="exp-card">
-      <h3><span class="icon">📐</span>状態空間モデルの導出</h3>
-      <p>関節の<strong>運動方程式</strong>（連続時間）：</p>
-      <div class="deriv-block">
-        <span class="label">連続時間モデル</span><br>
-        $$J\dot{\omega} = \tau - b\omega \;\Longrightarrow\; \dot{\omega} = \frac{\tau}{J} - \frac{b}{J}\omega$$
-        $$\dot{\theta} = \omega$$
+    <div class="exp-grid exp-2col" style="margin-bottom:16px">
+
+      <!-- 予測 -->
+      <div class="exp-card">
+        <h3><span class="step-badge">1</span>予測ステップ（Predict）</h3>
+        <p>
+          前の推定値 $\hat{\mathbf{x}}_{k-1} \in \mathbb{R}^2$ と制御入力 $u_k \in \mathbb{R}$（トルク指令）から，
+          <strong>物理モデルだけ</strong>を使って次の状態を先読みします。
+          センサ情報はこの段階では使いません。
+        </p>
+        <div class="fml">
+          <span class="lbl">状態予測　$\hat{\mathbf{x}}^-_k \in \mathbb{R}^2$</span>
+          $$\underbrace{\hat{\mathbf{x}}^-_k}_{2\times 1}
+            = \underbrace{A}_{2\times 2}\,\underbrace{\hat{\mathbf{x}}_{k-1}}_{2\times 1}
+            + \underbrace{B}_{2\times 1}\,\underbrace{u_k}_{スカラー}$$
+        </div>
+        <div class="fml">
+          <span class="lbl">誤差共分散予測　$P^-_k \in \mathbb{R}^{2\times 2}$</span>
+          $$\underbrace{P^-_k}_{2\times 2}
+            = \underbrace{A}_{2\times 2}\,\underbrace{P_{k-1}}_{2\times 2}\,\underbrace{A^\top}_{2\times 2}
+            + \underbrace{Q}_{2\times 2}$$
+        </div>
+        <p>
+          $Q \in \mathbb{R}^{2\times 2}$ はプロセスノイズ共分散<strong>行列</strong>（モデルの不確かさ）。
+          今回は $Q = \mathrm{diag}(Q_\theta,\,Q_\omega)$ の対角行列。
+          予測だけでは不確かさ $P^-_k$ は増大していきます。
+        </p>
+        <div class="callout co-blue">
+          <strong>ポイント：</strong>この式にはセンサ情報が一切入っていません。
+          純粋に「物理モデルを信じて」次の状態を計算しています。
+        </div>
       </div>
-      <p>前進オイラー法で<strong>離散化</strong>（サンプリング周期 $\Delta t$）：</p>
-      <div class="deriv-block">
-        <span class="label">離散時間モデル</span><br>
-        $$\theta_{k+1} = \theta_k + \Delta t\,\omega_k$$
-        $$\omega_{k+1} = \!\left(1 - \frac{b\Delta t}{J}\right)\omega_k + \frac{\Delta t}{J}\tau_k$$
+
+      <!-- 更新 -->
+      <div class="exp-card">
+        <h3><span class="step-badge">2</span>更新ステップ（Update）</h3>
+        <p>
+          エンコーダの観測値 $z_k \in \mathbb{R}$（スカラー）を使って予測を補正します。
+          $H \in \mathbb{R}^{1\times 2}$ は「状態ベクトルから角度だけを取り出す」行列です。
+        </p>
+        <div class="fml">
+          <span class="lbl">カルマンゲイン　$K_k \in \mathbb{R}^{2\times 1}$（ベクトル）</span>
+          $$\underbrace{K_k}_{2\times 1}
+            = \underbrace{P^-_k}_{2\times 2}\,\underbrace{H^\top}_{2\times 1}
+            \underbrace{\!\left(\underbrace{H}_{1\times 2}\underbrace{P^-_k}_{2\times 2}\underbrace{H^\top}_{2\times 1}
+              + \underbrace{R}_{スカラー}\right)^{-1}}_{スカラーの逆数}$$
+        </div>
+        <div class="fml">
+          <span class="lbl">状態推定の更新　$\hat{\mathbf{x}}_k \in \mathbb{R}^2$</span>
+          $$\underbrace{\hat{\mathbf{x}}_k}_{2\times 1}
+            = \underbrace{\hat{\mathbf{x}}^-_k}_{2\times 1}
+            + \underbrace{K_k}_{2\times 1}
+              \underbrace{\!\left(\underbrace{z_k}_{スカラー}
+                - \underbrace{H}_{1\times 2}\underbrace{\hat{\mathbf{x}}^-_k}_{2\times 1}\right)}_{\text{イノベーション }y_k \in \mathbb{R}}$$
+        </div>
+        <div class="fml">
+          <span class="lbl">誤差共分散の更新　$P_k \in \mathbb{R}^{2\times 2}$</span>
+          $$\underbrace{P_k}_{2\times 2}
+            = \left(\underbrace{I}_{2\times 2}
+              - \underbrace{K_k}_{2\times 1}\underbrace{H}_{1\times 2}\right)
+              \underbrace{P^-_k}_{2\times 2}$$
+        </div>
+        <div class="callout co-green">
+          $R \in \mathbb{R}$ はスカラーなので $HP^-_kH^\top + R$ もスカラー。<br>
+          よって $K_k = P^-_kH^\top / (HP^-_kH^\top + R)$（ベクトルをスカラーで割る）<br>
+          $K_k$ の第1成分 $K_\theta$：角度推定の補正量<br>
+          $K_k$ の第2成分 $K_\omega$：角速度推定の補正量
+        </div>
       </div>
-      <p>これを行列形式にまとめると $\mathbf{x}_{k+1} = A\mathbf{x}_k + B\tau_k$ となります。
-      $A$ の $(2,2)$ 要素 $1 - b\Delta t/J$ は粘性減衰を表し，$1$ に近いほど速度が持続しやすくなります。</p>
     </div>
 
+    <!-- P収束 -->
+    <div class="exp-card full">
+      <h3>📉&ensp;$P_k \in \mathbb{R}^{2\times 2}$ の収束と定常カルマンフィルタ</h3>
+      <p>
+        $P_k \in \mathbb{R}^{2\times 2}$ は「現在の推定値への信頼度」を表す正定値対称行列です。
+        対角成分 $P_k[1,1]$ が角度の不確かさ，$P_k[2,2]$ が角速度の不確かさに対応します。
+        時間が経つにつれて定常値に収束します（「カルマンゲイン」グラフで $K_k$ が収束する様子が確認できます）。
+      </p>
+      <p>
+        定常値に収束したカルマンゲイン $K_\infty \in \mathbb{R}^{2\times 1}$ を事前計算して固定する手法を<strong>定常カルマンフィルタ</strong>と呼び，
+        リアルタイム制御での計算コスト削減に使われます。
+      </p>
+      <div class="callout co-purple">
+        <strong>観測できない角速度が推定できる理由：</strong><br>
+        $H = [1,\;0] \in \mathbb{R}^{1\times 2}$ なので角速度 $\omega$ は直接観測されません。
+        しかし $A \in \mathbb{R}^{2\times 2}$（運動方程式）を通じて $P_k$ の $(2,2)$ 成分（角速度の不確かさ）も更新されるため，
+        角速度の推定精度も徐々に向上します。これが KF がルエンベルガーオブザーバと同族である理由です。
+      </div>
+    </div>
   </div>
+</section>
 
-  <!-- Row 2: 2カラム -->
-  <div class="exp-grid exp-grid-2">
 
-    <!-- Card 4: 予測と更新の直感 -->
-    <div class="exp-card">
-      <h3><span class="icon">🔄</span>予測ステップと更新ステップの直感</h3>
-      <p><strong>① 予測（Predict）</strong> — 物理モデルを信じて次の状態を先読みする。</p>
-      <div class="callout callout-blue">
-        $\hat{\mathbf{x}}^-_k = A\hat{\mathbf{x}}_{k-1} + Bu_k$ : モデルで1ステップ先を計算<br>
-        $P^-_k = AP_{k-1}A^\top + Q$ : モデルが持ち込む不確かさ $Q$ を加算 → $P$ が増大
+<!-- ════════════════════════════════════════════
+     Section 4 — カルマンフィルタの導出
+     ════════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <p class="section-tag">Derivation</p>
+    <h2 class="section-title">カルマンフィルタの導出</h2>
+    <p class="section-desc">
+      なぜあの更新式になるのか？
+      「推定誤差の分散を最小にするゲイン $K_k \in \mathbb{R}^{2\times 1}$ を求める」という最小分散推定の観点から導出します。
+    </p>
+
+    <div class="exp-grid exp-2col" style="margin-bottom:16px">
+
+      <!-- 予測ステップの導出 -->
+      <div class="exp-card">
+        <h3><span class="step-badge">1</span>予測ステップの導出</h3>
+        <p>
+          真の状態 $\mathbf{x}_k \in \mathbb{R}^2$ は $\mathbf{x}_k = A\mathbf{x}_{k-1} + Bu_k + \mathbf{w}_k$，
+          予測誤差 $\tilde{\mathbf{x}}^-_k \in \mathbb{R}^2$ を $\tilde{\mathbf{x}}^-_k = \mathbf{x}_k - \hat{\mathbf{x}}^-_k$ とおくと：
+        </p>
+        <div class="fml">
+          <span class="lbl">予測誤差の展開（$\tilde{\mathbf{x}}^-_k \in \mathbb{R}^2$）</span>
+          $$\tilde{\mathbf{x}}^-_k
+            = A\mathbf{x}_{k-1} + Bu_k + \mathbf{w}_k
+              - \!\underbrace{(A\hat{\mathbf{x}}_{k-1} + Bu_k)}_{\hat{\mathbf{x}}^-_k}
+            = A\tilde{\mathbf{x}}_{k-1} + \mathbf{w}_k$$
+        </div>
+        <p>外積の期待値を取ると，$\tilde{\mathbf{x}}_{k-1} \in \mathbb{R}^2$ と $\mathbf{w}_k \in \mathbb{R}^2$ は独立なので：</p>
+        <div class="fml">
+          <span class="lbl">予測誤差共分散（$P^-_k \in \mathbb{R}^{2\times 2}$）</span>
+          $$P^-_k = E\!\left[\tilde{\mathbf{x}}^-_k(\tilde{\mathbf{x}}^-_k)^\top\right]
+                  = \underbrace{A}_{2\times 2}\underbrace{P_{k-1}}_{2\times 2}\underbrace{A^\top}_{2\times 2}
+                    + \underbrace{Q}_{2\times 2}$$
+        </div>
+        <details>
+          <summary><span class="arrow">▶</span>途中式：$E[\tilde{\mathbf{x}}^-_k(\tilde{\mathbf{x}}^-_k)^\top]$ の展開</summary>
+          <div class="details-body">
+            $\tilde{\mathbf{x}}^-_k = A\tilde{\mathbf{x}}_{k-1} + \mathbf{w}_k$ を代入：
+            <div class="fml">
+              $$E\!\left[\tilde{\mathbf{x}}^-_k(\tilde{\mathbf{x}}^-_k)^\top\right]
+                = E\!\left[(A\tilde{\mathbf{x}}_{k-1} + \mathbf{w}_k)(A\tilde{\mathbf{x}}_{k-1} + \mathbf{w}_k)^\top\right]$$
+            </div>
+            展開すると 4 項になりますが，$\tilde{\mathbf{x}}_{k-1}$ と $\mathbf{w}_k$ は独立（$E[\tilde{\mathbf{x}}_{k-1}\mathbf{w}_k^\top]=0$）なので交差項が消えます：
+            <div class="fml">
+              $$= E\!\left[A\tilde{\mathbf{x}}_{k-1}\tilde{\mathbf{x}}_{k-1}^\top A^\top\right]
+                + E\!\left[\mathbf{w}_k\mathbf{w}_k^\top\right]$$
+              $$= A\underbrace{E[\tilde{\mathbf{x}}_{k-1}\tilde{\mathbf{x}}_{k-1}^\top]}_{P_{k-1}}A^\top
+                + \underbrace{E[\mathbf{w}_k\mathbf{w}_k^\top]}_{Q}
+                = AP_{k-1}A^\top + Q \quad \checkmark$$
+            </div>
+          </div>
+        </details>
+        <div class="callout co-blue">
+          プロセスノイズ $\mathbf{w}_k \in \mathbb{R}^2,\; \mathbf{w}_k \sim \mathcal{N}(\mathbf{0},\,Q)$ が予測に不確かさを加えるため，$P^-_k \geq P_{k-1}$（予測で必ず不確かさが増大）。
+        </div>
       </div>
-      <p><strong>② 更新（Update）</strong> — センサ観測で予測を補正する。</p>
-      <div class="callout callout-green">
-        $K_k = P^-_k H^\top (HP^-_kH^\top + R)^{-1}$ : 「モデル不確かさ vs センサ不確かさ」の比<br>
-        $\hat{\mathbf{x}}_k = \hat{\mathbf{x}}^-_k + K_k \underbrace{(z_k - H\hat{\mathbf{x}}^-_k)}_{\text{イノベーション}}$ : 予測をイノベーション分だけ修正<br>
-        $P_k = (I - K_kH)P^-_k$ : センサを使った分だけ不確かさが減少
-      </div>
-      <p>
-        <strong>カルマンゲイン $K_k$ の意味：</strong><br>
-        $K_k \to 0$ のとき $\hat{\mathbf{x}}_k \approx \hat{\mathbf{x}}^-_k$ （センサを無視，モデルのみ信頼）<br>
-        $K_k \to 1$ のとき $\hat{\mathbf{x}}_k \approx z_k / H$ （センサを全信頼，モデルを無視）
-      </p>
-      <div class="callout callout-purple">
-        $K_k$ は $P_k$ が収束すると定常値に落ち着きます（上のゲイングラフで確認できます）。
-        定常カルマンゲインを事前計算して固定する手法を <strong>定常カルマンフィルタ</strong> と呼びます。
+
+      <!-- 更新ステップの準備 -->
+      <div class="exp-card">
+        <h3><span class="step-badge">2</span>更新ステップの準備</h3>
+        <p>
+          一般的な<strong>線形推定量</strong>として，ゲイン $K_k \in \mathbb{R}^{2\times 1}$（ベクトル）を使った更新を仮定します：
+        </p>
+        <div class="fml">
+          <span class="lbl">推定量の仮定</span>
+          $$\underbrace{\hat{\mathbf{x}}_k}_{2\times 1}
+            = \underbrace{\hat{\mathbf{x}}^-_k}_{2\times 1}
+            + \underbrace{K_k}_{2\times 1}\underbrace{(z_k - H\hat{\mathbf{x}}^-_k)}_{スカラー}$$
+        </div>
+        <p>$z_k \in \mathbb{R},\; z_k = H\mathbf{x}_k + v_k$ を代入して更新後の推定誤差 $\tilde{\mathbf{x}}_k \in \mathbb{R}^2$ を求めます：</p>
+        <div class="fml">
+          <span class="lbl">更新後の推定誤差（$\tilde{\mathbf{x}}_k \in \mathbb{R}^2$）</span>
+          $$\tilde{\mathbf{x}}_k
+            = \mathbf{x}_k - \hat{\mathbf{x}}_k
+            = \underbrace{(I - K_kH)}_{2\times 2}\underbrace{\tilde{\mathbf{x}}^-_k}_{2\times 1}
+              - \underbrace{K_k}_{2\times 1}\underbrace{v_k}_{スカラー}$$
+        </div>
+        <p>$\tilde{\mathbf{x}}^-_k \in \mathbb{R}^2$ と観測ノイズ $v_k \in \mathbb{R},\; v_k \sim \mathcal{N}(0,R)$ は独立なので，更新後の誤差共分散は：</p>
+        <div class="fml">
+          <span class="lbl">誤差共分散・Joseph 形式（$P_k \in \mathbb{R}^{2\times 2}$）</span>
+          $$P_k = \underbrace{(I-K_kH)}_{2\times 2}\underbrace{P^-_k}_{2\times 2}\underbrace{(I-K_kH)^\top}_{2\times 2}
+                  + \underbrace{K_k}_{2\times 1}\underbrace{R}_{スカラー}\underbrace{K_k^\top}_{1\times 2}$$
+        </div>
+        <details>
+          <summary><span class="arrow">▶</span>途中式：$P_k = E[\tilde{\mathbf{x}}_k\tilde{\mathbf{x}}_k^\top]$ の展開</summary>
+          <div class="details-body">
+            $\tilde{\mathbf{x}}_k = (I-K_kH)\tilde{\mathbf{x}}^-_k - K_kv_k$ を代入：
+            <div class="fml">
+              $$P_k = E\!\left[\tilde{\mathbf{x}}_k\tilde{\mathbf{x}}_k^\top\right]
+                = E\!\left[((I-K_kH)\tilde{\mathbf{x}}^-_k - K_kv_k)(\cdots)^\top\right]$$
+            </div>
+            展開すると 4 項。$\tilde{\mathbf{x}}^-_k$ と $v_k$ は独立（$E[\tilde{\mathbf{x}}^-_k v_k^\top]=\mathbf{0}$）なので交差項が消えます：
+            <div class="fml">
+              $$= (I-K_kH)\underbrace{E[\tilde{\mathbf{x}}^-_k(\tilde{\mathbf{x}}^-_k)^\top]}_{P^-_k}(I-K_kH)^\top
+                + K_k\underbrace{E[v_kv_k^\top]}_{R}K_k^\top$$
+              $$= (I-K_kH)P^-_k(I-K_kH)^\top + K_kRK_k^\top \quad \checkmark$$
+            </div>
+          </div>
+        </details>
       </div>
     </div>
 
-    <!-- Card 5: パラメータチューニング -->
-    <div class="exp-card">
-      <h3><span class="icon">🎛️</span>パラメータの意味とチューニング指針</h3>
-      <table class="param-table">
-        <tr>
-          <th>パラメータ</th>
-          <th>意味</th>
-          <th>大きくすると</th>
-        </tr>
-        <tr>
-          <td>$R$</td>
-          <td>観測ノイズ分散<br>（センサの不確かさ）</td>
-          <td>$K$ が小さくなり，センサより<br>モデルを信頼 → 推定が滑らか</td>
-        </tr>
-        <tr>
-          <td>$Q_\theta$</td>
-          <td>角度プロセスノイズ分散<br>（角度モデルの不確かさ）</td>
-          <td>角度の $P$ が増大し，$K$ が大きく<br>なって角度の補正が大きくなる</td>
-        </tr>
-        <tr>
-          <td>$Q_\omega$</td>
-          <td>角速度プロセスノイズ分散<br>（角速度モデルの不確かさ）</td>
-          <td>角速度推定の追従が速くなるが<br>ノイズも拾いやすくなる</td>
-        </tr>
-        <tr>
-          <td>$P_0$</td>
-          <td>初期推定誤差分散</td>
-          <td>立ち上がり時に $K$ が大きく<br>なる（すぐ収束するので影響小）</td>
-        </tr>
-      </table>
-      <div class="callout callout-amber" style="margin-top:14px">
-        <strong>チューニングの出発点</strong><br>
-        $R$ はエンコーダのスペックシートから設定可能（$R \approx \sigma_{\rm sensor}^2$）。<br>
-        $Q$ はモデル化誤差や外乱の大きさに応じて調整する「設計パラメータ」です。<br>
-        一般に $R/Q$ の比が重要で，$R \gg Q$ ならモデル重視，$R \ll Q$ ならセンサ重視になります。
+    <!-- 最適ゲインの導出（フル幅） -->
+    <div class="exp-card full">
+      <h3><span class="step-badge">3</span>最適カルマンゲインの導出 — $\mathrm{tr}(P_k)$ の最小化</h3>
+      <p>
+        目標：<strong>推定誤差の総分散 $\mathrm{tr}(P_k) \in \mathbb{R}$ を最小にするゲイン $K_k \in \mathbb{R}^{2\times 1}$ を求める。</strong><br>
+        $\mathrm{tr}(P_k)$ を $K_k$ で微分してゼロとおきます。Joseph 形式を展開すると：
+      </p>
+      <div class="fml">
+        <span class="lbl">tr(P_k) の展開</span>
+        $$\mathrm{tr}(P_k)
+          = \mathrm{tr}(P^-_k)
+          - 2\,\mathrm{tr}(K_k H P^-_k)
+          + \mathrm{tr}\!\left(K_k\underbrace{(HP^-_kH^\top + R)}_{S_k \in \mathbb{R}\;(\text{スカラー})}K_k^\top\right)$$
       </div>
-      <div class="callout callout-blue">
-        <strong>実装上の注意</strong><br>
-        $P_k$ が負定値にならないよう数値的安定性に注意が必要です。
-        実用では Joseph 形式 $P_k = (I-K_kH)P^-_k(I-K_kH)^\top + K_kRK_k^\top$ や
-        平方根フィルタが使われることがあります。
+      <details>
+        <summary><span class="arrow">▶</span>途中式：$\mathrm{tr}(P_k)$ の展開（Joseph 形式→各項の計算）</summary>
+        <div class="details-body">
+          Joseph 形式を展開します：
+          <div class="fml">
+            $$\mathrm{tr}(P_k) = \mathrm{tr}\!\left[(I-K_kH)P^-_k(I-K_kH)^\top\right] + \mathrm{tr}(K_kRK_k^\top)$$
+          </div>
+          第1項を展開：$(I-K_kH)P^-_k(I-K_kH)^\top = P^-_k - K_kHP^-_k - P^-_kH^\top K_k^\top + K_kHP^-_kH^\top K_k^\top$
+          <div class="fml">
+            $$\mathrm{tr}(\cdots) = \mathrm{tr}(P^-_k)
+              - \mathrm{tr}(K_kHP^-_k)
+              - \mathrm{tr}(P^-_kH^\top K_k^\top)
+              + \mathrm{tr}(K_kHP^-_kH^\top K_k^\top)$$
+          </div>
+          $\mathrm{tr}(AB) = \mathrm{tr}(BA)$ より $\mathrm{tr}(K_kHP^-_k) = \mathrm{tr}(P^-_kH^\top K_k^\top)$ なので 2 倍にまとめ，
+          $S_k = HP^-_kH^\top + R \in \mathbb{R}$（スカラー）を使うと：
+          <div class="fml">
+            $$\mathrm{tr}(P_k) = \mathrm{tr}(P^-_k) - 2\,\mathrm{tr}(K_kHP^-_k)
+              + \mathrm{tr}(K_k S_k K_k^\top) \quad \checkmark$$
+          </div>
+        </div>
+      </details>
+      <p>
+        行列微分の公式 $\partial\,\mathrm{tr}(AB)/\partial A = B^\top$，$\partial\,\mathrm{tr}(ASA^\top)/\partial A = 2AS$（$S$ 対称）を使うと<br>
+        （ここで $K_k \in \mathbb{R}^{2\times 1}$ について微分，$S_k \in \mathbb{R}$ はスカラー）：
+      </p>
+      <div class="fml">
+        <span class="lbl">微分してゼロとおく（最適性条件）</span>
+        $$\frac{\partial\,\mathrm{tr}(P_k)}{\partial K_k}
+          = -2\underbrace{P^-_k}_{2\times 2}\underbrace{H^\top}_{2\times 1}
+            + 2\underbrace{K_k}_{2\times 1}\underbrace{S_k}_{スカラー} = 0$$
+      </div>
+      <div class="fml">
+        <span class="lbl">最適カルマンゲイン（$K_k \in \mathbb{R}^{2\times 1}$）</span>
+        $$\boxed{K_k = \underbrace{P^-_k}_{2\times 2}\underbrace{H^\top}_{2\times 1}
+          \underbrace{\!\left(\underbrace{H}_{1\times 2}\underbrace{P^-_k}_{2\times 2}\underbrace{H^\top}_{2\times 1}
+            + \underbrace{R}_{スカラー}\right)^{-1}}_{\text{スカラーの逆数} \in \mathbb{R}}}$$
+      </div>
+      <div class="callout co-green">
+        <strong>次元チェック：</strong>
+        $P^-_kH^\top \in \mathbb{R}^{2\times 1}$，$(HP^-_kH^\top + R)^{-1} \in \mathbb{R}$（スカラー）<br>
+        → $K_k = \mathbb{R}^{2\times 1} \times \mathbb{R} = \mathbb{R}^{2\times 1}$ ✓<br><br>
+        <strong>直感：</strong>
+        $P^-_k$（モデルの不確かさ）が大きい → $K_k$ が大きい → センサを信頼。
+        $R$（センサの不確かさ）が大きい → $K_k$ が小さい → モデルを信頼。
+      </div>
+      <p>
+        最適 $K_k$ を Joseph 形式に代入すると，更新後の共分散は次の簡略形になります：
+      </p>
+      <div class="fml">
+        <span class="lbl">誤差共分散の簡略更新式（$P_k \in \mathbb{R}^{2\times 2}$）</span>
+        $$\underbrace{P_k}_{2\times 2}
+          = \left(\underbrace{I}_{2\times 2}
+            - \underbrace{K_k}_{2\times 1}\underbrace{H}_{1\times 2}\right)\underbrace{P^-_k}_{2\times 2}$$
+      </div>
+      <details>
+        <summary><span class="arrow">▶</span>途中式：Joseph 形式 → 簡略形の変形</summary>
+        <div class="details-body">
+          Joseph 形式の第2項 $K_kRK_k^\top$ に，最適ゲイン $K_k = P^-_kH^\top S_k^{-1}$（$S_k = HP^-_kH^\top + R$）を代入します：
+          <div class="fml">
+            $$K_kRK_k^\top = P^-_kH^\top S_k^{-1} R S_k^{-1} H P^-_k$$
+          </div>
+          第1項の $K_kHP^-_kH^\top K_k^\top$ に注目します：
+          <div class="fml">
+            $$K_kHP^-_kH^\top K_k^\top = K_k(S_k - R)K_k^\top = K_kS_kK_k^\top - K_kRK_k^\top$$
+          </div>
+          Joseph 形式に代入して整理すると：
+          <div class="fml">
+            $$P_k = P^-_k - K_kHP^-_k - P^-_kH^\top K_k^\top
+                    + K_kS_kK_k^\top - K_kRK_k^\top + K_kRK_k^\top$$
+            $$= P^-_k - K_kHP^-_k - P^-_kH^\top K_k^\top + K_kS_kK_k^\top$$
+          </div>
+          $K_kS_k = P^-_kH^\top$（最適ゲインの条件）を使うと：
+          <div class="fml">
+            $$= P^-_k - K_kHP^-_k - \underbrace{P^-_kH^\top K_k^\top}_{= K_kHP^-_k \text{ の転置}} + \underbrace{K_kS_kK_k^\top}_{= P^-_kH^\top K_k^\top}$$
+            $$= P^-_k - K_kHP^-_k = (I - K_kH)P^-_k \quad \checkmark$$
+          </div>
+        </div>
+      </details>
+      <div class="callout co-amber">
+        <strong>注意：</strong>簡略形は数値誤差で $P_k$ が非対称・非正定値になることがある。
+        数値的に安定な Joseph 形式 $(I-K_kH)P^-_k(I-K_kH)^\top + K_kRK_k^\top$ の使用が実装上は推奨されます。
+      </div>
+    </div>
+
+    <!-- 最適性の全体像 -->
+    <div class="exp-card full" style="margin-top:16px">
+      <h3>🎓&ensp;最適性のまとめ：なぜカルマンフィルタは「最適」か</h3>
+      <p>
+        線形システム・ガウスノイズという条件のもとで，カルマンフィルタは次の意味で<strong>同時に最適</strong>です。
+      </p>
+      <div class="exp-grid exp-3col" style="margin-top:14px">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px">
+          <p style="font-weight:700;font-size:0.82rem;color:#0f172a;margin-bottom:6px">最小分散推定 (MVUE)</p>
+          <p style="font-size:0.76rem">$E\!\left[\|\tilde{\mathbf{x}}_k\|^2\right] = \mathrm{tr}(P_k)$ を最小化する線形不偏推定量。</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px">
+          <p style="font-weight:700;font-size:0.82rem;color:#0f172a;margin-bottom:6px">MAP 推定 / MMSE 推定</p>
+          <p style="font-size:0.76rem">ガウス分布の場合，MAP（最大事後確率）と MMSE（最小平均二乗誤差）が一致し，KF がその解になる。</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px">
+          <p style="font-weight:700;font-size:0.82rem;color:#0f172a;margin-bottom:6px">再帰ベイズ推定</p>
+          <p style="font-size:0.76rem">事前分布（予測）と尤度（観測）の積で事後分布を更新するベイズ推定の閉形式解がカルマンフィルタ。</p>
+        </div>
       </div>
     </div>
 
   </div>
 </section>
 
+
+<!-- ════════════════════════════════════════════
+     Section 5 — インタラクティブシミュレーター
+     ════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <p class="section-tag">Interactive Simulator</p>
+    <h2 class="section-title">インタラクティブシミュレーター</h2>
+    <p class="section-desc">
+      スライダーを動かすとリアルタイムで結果が更新されます。
+      アニメーションでカルマンフィルタが時刻ごとに推定を更新する様子を確認しましょう。
+    </p>
+
+    <!-- 固定パラメータ表示 -->
+    <div class="sys-info-bar">
+      <span><span class="lbl">慣性モーメント </span><span class="val">J = 0.1 kg·m²</span></span>
+      <span><span class="lbl">粘性摩擦 </span><span class="val">b = 0.5 N·m·s/rad</span></span>
+      <span><span class="lbl">PD ゲイン </span><span class="val">$K_p$ = 10, $K_d$ = 2</span></span>
+      <span><span class="lbl">サンプリング </span><span class="val">$\Delta t$ = 0.02 s (50 Hz)</span></span>
+    </div>
+
+    <!-- KF パラメータスライダー -->
+    <div class="param-grid">
+      <div class="param-card">
+        <div class="param-head">
+          <span class="param-name">観測ノイズ分散 $R$</span>
+          <span class="param-val" id="v-R">0.010</span>
+        </div>
+        <p class="param-hint">大 → センサを信じない → 推定が滑らか</p>
+        <input type="range" id="s-R" min="0.001" max="1.0" step="0.001" value="0.01">
+      </div>
+      <div class="param-card">
+        <div class="param-head">
+          <span class="param-name">角度プロセスノイズ $Q_\theta$</span>
+          <span class="param-val" id="v-Qt">0.0010</span>
+        </div>
+        <p class="param-hint">角度モデルの不確かさ</p>
+        <input type="range" id="s-Qt" min="0.0001" max="0.1" step="0.0001" value="0.001">
+      </div>
+      <div class="param-card">
+        <div class="param-head">
+          <span class="param-name">角速度プロセスノイズ $Q_\omega$</span>
+          <span class="param-val" id="v-Qw">0.100</span>
+        </div>
+        <p class="param-hint">大 → 速度推定の追従が速くなる</p>
+        <input type="range" id="s-Qw" min="0.001" max="2.0" step="0.001" value="0.1">
+      </div>
+      <div class="param-card">
+        <div class="param-head">
+          <span class="param-name">センサノイズ $\sigma$</span>
+          <span class="param-val" id="v-sigma">0.050</span>
+        </div>
+        <p class="param-hint">シミュレーション上のエンコーダノイズ量</p>
+        <input type="range" id="s-sigma" min="0.005" max="0.3" step="0.005" value="0.05">
+      </div>
+    </div>
+
+    <!-- ボタン -->
+    <div class="btn-row">
+      <button id="btnReseed">🔄 ノイズ再生成</button>
+      <button id="btnAnimate">▶ アニメーション</button>
+    </div>
+
+    <!-- 角度グラフ -->
+    <div class="chart-card">
+      <canvas id="mainCanvas" data-css-height="260" height="260"></canvas>
+      <div id="loading">読み込み中…</div>
+      <div class="chart-legend">
+        <div class="leg-item"><div class="l-dash"></div>目標 $\theta_{\rm ref}$</div>
+        <div class="leg-item"><div class="l-line" style="background:#3b82f6"></div>真値 $\theta$（現実には不明）</div>
+        <div class="leg-item"><div class="l-dot" style="background:#ef4444"></div>観測値（エンコーダ）</div>
+        <div class="leg-item"><div class="l-line" style="background:#10b981"></div>KF 推定 $\hat\theta$</div>
+      </div>
+    </div>
+
+    <!-- 中段：アーム + 角速度 -->
+    <div class="mid-row">
+      <div class="chart-card">
+        <canvas id="armCanvas" data-css-height="210" height="210"></canvas>
+      </div>
+      <div class="chart-card">
+        <canvas id="velCanvas" data-css-height="210" height="210"></canvas>
+        <div class="chart-legend">
+          <div class="leg-item"><div class="l-line" style="background:#3b82f6"></div>真値 $\omega$</div>
+          <div class="leg-item"><div class="l-line" style="background:#f59e0b"></div>KF 推定 $\hat\omega$（観測不可！）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- カルマンゲイン -->
+    <div class="chart-card">
+      <canvas id="gainCanvas" data-css-height="120" height="120"></canvas>
+      <div class="chart-legend">
+        <div class="leg-item"><div class="l-line" style="background:#f97316"></div>$K_\theta$（角度ゲイン）</div>
+        <div class="leg-item"><div class="l-line" style="background:#a855f7"></div>$K_\omega$（角速度ゲイン）</div>
+      </div>
+    </div>
+
+    <!-- 洞察 -->
+    <div class="insight-bar">
+      <span>💡</span>
+      <span>
+        角速度 $\omega$ はエンコーダで<strong>直接観測できない</strong>にもかかわらず，
+        カルマンフィルタは運動方程式（$A$ 行列）を内部モデルとして使い，角速度を間接的に推定できる。
+        これがオブザーバとしての KF の強みです。
+      </span>
+    </div>
+
+    <!-- 統計 -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">RMSE 角度 $\theta$ [rad]</div>
+        <div class="stat-value" id="st-rmse-t">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">RMSE 角速度 $\omega$ [rad/s]</div>
+        <div class="stat-value" id="st-rmse-w">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">カルマンゲイン $K_\theta$</div>
+        <div class="stat-value" id="st-Kt">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">推定誤差分散 $P_\theta$</div>
+        <div class="stat-value" id="st-Pt">—</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     Section 6 — パラメータ指針
+     ════════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="container">
+    <p class="section-tag">Parameter Tuning</p>
+    <h2 class="section-title">パラメータの意味とチューニング指針</h2>
+    <p class="section-desc">
+      設計パラメータ $R$，$Q$ の設定がフィルタの性能を大きく左右します。
+      シミュレーターで実際に動かして感覚をつかみましょう。
+    </p>
+
+    <div class="exp-grid exp-2col">
+      <div class="exp-card">
+        <h3>📋&ensp;各パラメータの意味</h3>
+        <table class="param-table">
+          <tr><th>パラメータ</th><th>意味</th><th>大きくすると</th></tr>
+          <tr>
+            <td>$R$</td>
+            <td>観測ノイズ分散<br>（センサの不確かさ）</td>
+            <td>$K$ が小さく，センサよりモデルを信頼→推定が滑らか</td>
+          </tr>
+          <tr>
+            <td>$Q_\theta$</td>
+            <td>角度プロセスノイズ</td>
+            <td>角度補正が大きくなり，センサへの追従が速くなる</td>
+          </tr>
+          <tr>
+            <td>$Q_\omega$</td>
+            <td>角速度プロセスノイズ</td>
+            <td>角速度推定の追従が速くなるが，ノイズも拾いやすい</td>
+          </tr>
+          <tr>
+            <td>$P_0$</td>
+            <td>初期推定誤差分散</td>
+            <td>立ち上がり時の $K$ が大きくなる（定常後は影響小）</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="exp-card">
+        <h3>🎯&ensp;チューニングの指針</h3>
+        <div class="callout co-blue">
+          <strong>$R$ の設定</strong><br>
+          エンコーダのスペックシートから設定可能。精度 $\sigma_{\rm sensor}$ が既知なら $R = \sigma_{\rm sensor}^2$。
+        </div>
+        <div class="callout co-amber">
+          <strong>$Q$ の設定</strong><br>
+          モデル化誤差・外乱の大きさに応じて調整する「設計パラメータ」。試行錯誤で決めることが多い。
+        </div>
+        <div class="callout co-green">
+          <strong>$R / Q$ 比の直感</strong><br>
+          $R \gg Q$ → モデル重視（滑らか・遅延あり）<br>
+          $R \ll Q$ → センサ重視（追従速い・ノイズあり）<br>
+          バランスが取れると RMSE が最小化される
+        </div>
+        <div class="callout co-purple">
+          <strong>実装上の注意</strong><br>
+          数値誤差で $P_k$ が非正定値になることがある。より安定な更新式として
+          Joseph 形式 $(I{-}KH)P^-(I{-}KH)^\top + KRK^\top$ がある。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     Footer
+     ════════════════════════════════════════════ -->
+<footer>
+  <p>カルマンフィルタ インタラクティブ学習 — Python / Flask + Canvas API</p>
+</footer>
+
+
 <script>
+// ─────────────────────────────────────────────────────────────────
+//  テーマカラー定数
+// ─────────────────────────────────────────────────────────────────
+const C = {
+  grid:      '#e2e8f0',
+  gridText:  '#94a3b8',
+  target:    '#94a3b8',
+  true_:     '#3b82f6',
+  obs:       'rgba(239,68,68,0.55)',
+  est:       '#10b981',
+  estBand:   'rgba(16,185,129,0.07)',
+  omegaTrue: '#3b82f6',
+  omegaEst:  '#f59e0b',
+  kTheta:    '#f97316',
+  kOmega:    '#a855f7',
+  armTarget: 'rgba(148,163,184,0.55)',
+  armTrue:   'rgba(59,130,246,0.45)',
+  armEst:    '#10b981',
+};
+
 // ─────────────────────────────────────────────────────────────────
 //  Canvas ユーティリティ
 // ─────────────────────────────────────────────────────────────────
-
 function setupCanvas(canvas) {
   const dpr  = window.devicePixelRatio || 1;
   const cssW = canvas.offsetWidth;
   const cssH = parseInt(canvas.dataset.cssHeight, 10);
-
   canvas.width  = cssW * dpr;
   canvas.height = cssH * dpr;
-
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
   return { ctx, w: cssW, h: cssH };
@@ -621,7 +1249,7 @@ function mapY(v, minV, maxV, h, pad) {
 
 function drawGrid(ctx, w, h, pad, minV, maxV, dataN, nLines = 5) {
   const dt = appData ? appData.dt : 0.02;
-  ctx.strokeStyle = '#1e2235';
+  ctx.strokeStyle = C.grid;
   ctx.lineWidth   = 1;
   ctx.font        = '10px sans-serif';
 
@@ -632,7 +1260,7 @@ function drawGrid(ctx, w, h, pad, minV, maxV, dataN, nLines = 5) {
     ctx.lineTo(w - pad, y);
     ctx.stroke();
     const v = maxV - (i / nLines) * (maxV - minV);
-    ctx.fillStyle  = '#444';
+    ctx.fillStyle  = C.gridText;
     ctx.textAlign  = 'right';
     ctx.fillText(v.toFixed(2), pad - 4, y + 4);
   }
@@ -644,7 +1272,7 @@ function drawGrid(ctx, w, h, pad, minV, maxV, dataN, nLines = 5) {
     ctx.moveTo(x, pad);
     ctx.lineTo(x, h - pad);
     ctx.stroke();
-    ctx.fillStyle  = '#444';
+    ctx.fillStyle  = C.gridText;
     ctx.textAlign  = 'center';
     ctx.fillText(`${(k * dt).toFixed(1)}s`, x, h - pad + 13);
   }
@@ -653,7 +1281,6 @@ function drawGrid(ctx, w, h, pad, minV, maxV, dataN, nLines = 5) {
 // ─────────────────────────────────────────────────────────────────
 //  API fetch & state
 // ─────────────────────────────────────────────────────────────────
-
 let appData     = null;
 let animId      = null;
 let animStep    = null;
@@ -670,7 +1297,6 @@ function getParams() {
 }
 
 let fetchTimer = null;
-
 function schedFetch() {
   stopAnim();
   if (fetchTimer) clearTimeout(fetchTimer);
@@ -678,9 +1304,8 @@ function schedFetch() {
 }
 
 async function fetchAndDraw() {
-  const p = getParams();
+  const p   = getParams();
   const url = `/api/compute?R=${p.R}&Q_theta=${p.Q_theta}&Q_omega=${p.Q_omega}&sigma=${p.sigma}&seed=${p.seed}`;
-
   document.getElementById('loading').classList.remove('hidden');
   try {
     const res = await fetch(url);
@@ -697,7 +1322,6 @@ async function fetchAndDraw() {
 // ─────────────────────────────────────────────────────────────────
 //  描画
 // ─────────────────────────────────────────────────────────────────
-
 function drawAll(step) {
   if (!appData) return;
   drawAngle(step);
@@ -707,7 +1331,7 @@ function drawAll(step) {
   updateStats(step);
 }
 
-// ── 角度グラフ ────────────────────────────────────────────────────
+// 角度グラフ
 function drawAngle(step) {
   const canvas = document.getElementById('mainCanvas');
   const { ctx, w, h } = setupCanvas(canvas);
@@ -724,32 +1348,30 @@ function drawAngle(step) {
   ctx.clearRect(0, 0, w, h);
   drawGrid(ctx, w, h, pad, minV, maxV, N);
 
-  // タイトル
   ctx.font = '11px sans-serif';
-  ctx.fillStyle = '#555';
+  ctx.fillStyle = C.gridText;
   ctx.textAlign = 'left';
   ctx.fillText('角度 θ [rad]', pad + 4, pad + 14);
 
-  // 誤差帯 ±√P_theta
+  // 誤差帯
   ctx.beginPath();
   for (let k = 0; k <= step; k++) {
     const s = Math.sqrt(P_theta[k]);
-    k === 0
-      ? ctx.moveTo(mx(k), my(theta_est[k] + s))
-      : ctx.lineTo(mx(k), my(theta_est[k] + s));
+    k === 0 ? ctx.moveTo(mx(k), my(theta_est[k] + s))
+            : ctx.lineTo(mx(k), my(theta_est[k] + s));
   }
   for (let k = step; k >= 0; k--) {
     ctx.lineTo(mx(k), my(theta_est[k] - Math.sqrt(P_theta[k])));
   }
   ctx.closePath();
-  ctx.fillStyle = 'rgba(81,207,102,0.1)';
+  ctx.fillStyle = C.estBand;
   ctx.fill();
 
-  // 目標軌道（破線）
+  // 目標（破線）
   ctx.save();
   ctx.setLineDash([5, 5]);
   ctx.beginPath();
-  ctx.strokeStyle = '#adb5bd';
+  ctx.strokeStyle = C.target;
   ctx.lineWidth   = 1.5;
   for (let k = 0; k <= step; k++) {
     k === 0 ? ctx.moveTo(mx(k), my(theta_ref[k]))
@@ -760,7 +1382,7 @@ function drawAngle(step) {
 
   // 真値
   ctx.beginPath();
-  ctx.strokeStyle = '#4dabf7';
+  ctx.strokeStyle = C.true_;
   ctx.lineWidth   = 2;
   for (let k = 0; k <= step; k++) {
     k === 0 ? ctx.moveTo(mx(k), my(theta[k]))
@@ -768,17 +1390,17 @@ function drawAngle(step) {
   }
   ctx.stroke();
 
-  // 観測値（点）
+  // 観測値
   for (let k = 0; k <= step; k++) {
     ctx.beginPath();
-    ctx.arc(mx(k), my(obs[k]), 2.0, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255,107,107,0.55)';
+    ctx.arc(mx(k), my(obs[k]), 2.2, 0, Math.PI * 2);
+    ctx.fillStyle = C.obs;
     ctx.fill();
   }
 
   // 推定値
   ctx.beginPath();
-  ctx.strokeStyle = '#51cf66';
+  ctx.strokeStyle = C.est;
   ctx.lineWidth   = 2.5;
   for (let k = 0; k <= step; k++) {
     k === 0 ? ctx.moveTo(mx(k), my(theta_est[k]))
@@ -786,44 +1408,37 @@ function drawAngle(step) {
   }
   ctx.stroke();
 
-  // アニメ中の現在地
   if (step < N - 1) {
     ctx.beginPath();
     ctx.arc(mx(step), my(theta_est[step]), 5, 0, Math.PI * 2);
-    ctx.fillStyle = '#51cf66';
+    ctx.fillStyle = C.est;
     ctx.fill();
   }
 }
 
-// ── 関節アーム可視化 ─────────────────────────────────────────────
+// 関節アーム
 function drawArm(step) {
   const canvas = document.getElementById('armCanvas');
   const { ctx, w, h } = setupCanvas(canvas);
-
   ctx.clearRect(0, 0, w, h);
 
-  const cx = w * 0.5;
-  const cy = h * 0.48;
+  const cx = w * 0.5, cy = h * 0.48;
   const L  = Math.min(w, h) * 0.36;
 
-  // タイトル
-  ctx.font      = '10px sans-serif';
-  ctx.fillStyle = '#555';
+  ctx.font = '10px sans-serif';
+  ctx.fillStyle = C.gridText;
   ctx.textAlign = 'center';
   ctx.fillText('関節可視化', w / 2, 13);
-
-  // 時刻ラベル
-  const dt = appData.dt;
-  ctx.fillText(`t = ${(appData.t[step]).toFixed(2)} s`, w / 2, h - 5);
+  ctx.fillText(`t = ${appData.t[step].toFixed(2)} s`, w / 2, h - 5);
 
   // ピボット
   ctx.beginPath();
   ctx.arc(cx, cy, 6, 0, Math.PI * 2);
-  ctx.fillStyle = '#333a55';
+  ctx.fillStyle = '#e2e8f0';
   ctx.fill();
   ctx.beginPath();
-  ctx.arc(cx, cy, 4, 0, Math.PI * 2);
-  ctx.fillStyle = '#555';
+  ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+  ctx.fillStyle = '#94a3b8';
   ctx.fill();
 
   function drawArmLine(theta, color, lw, dashed, tipR) {
@@ -845,45 +1460,35 @@ function drawArm(step) {
     ctx.fill();
   }
 
-  // 目標（破線・灰）
-  drawArmLine(appData.theta_ref[step], 'rgba(173,181,189,0.5)', 1.5, true, 4);
-  // 真値（青・細）
-  drawArmLine(appData.theta[step], 'rgba(77,171,247,0.55)', 2, false, 4);
-  // 推定値（緑・太）
-  drawArmLine(appData.theta_est[step], '#51cf66', 3, false, 6);
+  drawArmLine(appData.theta_ref[step], C.armTarget, 1.5, true,  3);
+  drawArmLine(appData.theta[step],     C.armTrue,   2,   false, 4);
+  drawArmLine(appData.theta_est[step], C.armEst,    3,   false, 5);
 
-  // 凡例（小）
-  const items = [
-    { color: 'rgba(173,181,189,0.5)', label: '目標', dashed: true },
-    { color: 'rgba(77,171,247,0.7)',  label: '真値', dashed: false },
-    { color: '#51cf66',              label: '推定', dashed: false },
-  ];
-  items.forEach(({ color, label, dashed }, i) => {
-    const lx = 10, ly = 28 + i * 16;
+  // 凡例
+  [['rgba(148,163,184,0.55)', '目標', true],
+   ['rgba(59,130,246,0.45)',  '真値', false],
+   [C.armEst,                 '推定', false]].forEach(([col, label, dashed], i) => {
+    const lx = 10, ly = 28 + i * 15;
     ctx.save();
     ctx.beginPath();
     if (dashed) ctx.setLineDash([4, 4]);
-    ctx.moveTo(lx, ly);
-    ctx.lineTo(lx + 18, ly);
-    ctx.strokeStyle = color;
-    ctx.lineWidth   = 2;
-    ctx.stroke();
+    ctx.moveTo(lx, ly); ctx.lineTo(lx + 16, ly);
+    ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.stroke();
     ctx.restore();
-    ctx.font      = '9px sans-serif';
-    ctx.fillStyle = '#666';
+    ctx.font = '9px sans-serif';
+    ctx.fillStyle = '#94a3b8';
     ctx.textAlign = 'left';
-    ctx.fillText(label, lx + 22, ly + 4);
+    ctx.fillText(label, lx + 20, ly + 4);
   });
 
-  // 角度差ラベル
   const errDeg = ((appData.theta_est[step] - appData.theta[step]) * 180 / Math.PI).toFixed(2);
   ctx.font = '9px sans-serif';
-  ctx.fillStyle = '#444';
+  ctx.fillStyle = '#cbd5e1';
   ctx.textAlign = 'center';
   ctx.fillText(`誤差 ${errDeg}°`, w / 2, h - 18);
 }
 
-// ── 角速度グラフ ─────────────────────────────────────────────────
+// 角速度グラフ
 function drawVelocity(step) {
   const canvas = document.getElementById('velCanvas');
   const { ctx, w, h } = setupCanvas(canvas);
@@ -900,22 +1505,19 @@ function drawVelocity(step) {
   ctx.clearRect(0, 0, w, h);
   drawGrid(ctx, w, h, pad, minV, maxV, N);
 
-  // タイトル
   ctx.font = '11px sans-serif';
-  ctx.fillStyle = '#555';
+  ctx.fillStyle = C.gridText;
   ctx.textAlign = 'left';
   ctx.fillText('角速度 ω [rad/s]', pad + 4, pad + 14);
 
-  // 「観測不可」ラベル
   ctx.font = '9px sans-serif';
-  ctx.fillStyle = '#3a2a00';
-  ctx.fillStyle = '#554400';
+  ctx.fillStyle = '#fbbf24';
   ctx.textAlign = 'right';
-  ctx.fillText('★ 直接観測できない！', w - pad - 2, pad + 14);
+  ctx.fillText('★ 直接観測できない', w - pad - 2, pad + 14);
 
   // 真値
   ctx.beginPath();
-  ctx.strokeStyle = '#4dabf7';
+  ctx.strokeStyle = C.omegaTrue;
   ctx.lineWidth   = 1.5;
   for (let k = 0; k <= step; k++) {
     k === 0 ? ctx.moveTo(mx(k), my(omega[k]))
@@ -923,9 +1525,9 @@ function drawVelocity(step) {
   }
   ctx.stroke();
 
-  // 推定値
+  // 推定
   ctx.beginPath();
-  ctx.strokeStyle = '#ff9f43';
+  ctx.strokeStyle = C.omegaEst;
   ctx.lineWidth   = 2.5;
   for (let k = 0; k <= step; k++) {
     k === 0 ? ctx.moveTo(mx(k), my(omega_est[k]))
@@ -936,31 +1538,12 @@ function drawVelocity(step) {
   if (step < N - 1) {
     ctx.beginPath();
     ctx.arc(mx(step), my(omega_est[step]), 5, 0, Math.PI * 2);
-    ctx.fillStyle = '#ff9f43';
+    ctx.fillStyle = C.omegaEst;
     ctx.fill();
   }
-
-  // 凡例
-  const legItems = [
-    { color: '#4dabf7', label: '真値 ω' },
-    { color: '#ff9f43', label: 'KF推定 ω̂' },
-  ];
-  legItems.forEach(({ color, label }, i) => {
-    const lx = w - pad - 68, ly = pad + 28 + i * 14;
-    ctx.beginPath();
-    ctx.moveTo(lx, ly);
-    ctx.lineTo(lx + 14, ly);
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    ctx.font = '9px sans-serif';
-    ctx.fillStyle = '#888';
-    ctx.textAlign = 'left';
-    ctx.fillText(label, lx + 18, ly + 4);
-  });
 }
 
-// ── カルマンゲイン ─────────────────────────────────────────────────
+// カルマンゲイン
 function drawGain(step) {
   const canvas = document.getElementById('gainCanvas');
   const { ctx, w, h } = setupCanvas(canvas);
@@ -978,47 +1561,19 @@ function drawGain(step) {
   drawGrid(ctx, w, h, pad, minV, maxV, N, 4);
 
   ctx.font = '11px sans-serif';
-  ctx.fillStyle = '#555';
+  ctx.fillStyle = C.gridText;
   ctx.textAlign = 'left';
   ctx.fillText('カルマンゲイン K', pad + 4, pad + 14);
 
-  // K_theta（角度へのゲイン）
-  ctx.beginPath();
-  ctx.strokeStyle = '#ffa94d';
-  ctx.lineWidth   = 2;
-  for (let k = 0; k <= step; k++) {
-    k === 0 ? ctx.moveTo(mx(k), my(K_theta[k]))
-            : ctx.lineTo(mx(k), my(K_theta[k]));
-  }
-  ctx.stroke();
-
-  // K_omega（角速度へのゲイン）
-  ctx.beginPath();
-  ctx.strokeStyle = '#cc5de8';
-  ctx.lineWidth   = 2;
-  for (let k = 0; k <= step; k++) {
-    k === 0 ? ctx.moveTo(mx(k), my(K_omega[k]))
-            : ctx.lineTo(mx(k), my(K_omega[k]));
-  }
-  ctx.stroke();
-
-  // 凡例
-  const legG = [
-    { color: '#ffa94d', label: 'K_θ (角度)' },
-    { color: '#cc5de8', label: 'K_ω (角速度)' },
-  ];
-  legG.forEach(({ color, label }, i) => {
-    const lx = w - pad - 88, ly = pad + 14 + i * 14;
+  [[K_theta, C.kTheta], [K_omega, C.kOmega]].forEach(([arr, color]) => {
     ctx.beginPath();
-    ctx.moveTo(lx, ly);
-    ctx.lineTo(lx + 14, ly);
     ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
+    ctx.lineWidth   = 2;
+    for (let k = 0; k <= step; k++) {
+      k === 0 ? ctx.moveTo(mx(k), my(arr[k]))
+              : ctx.lineTo(mx(k), my(arr[k]));
+    }
     ctx.stroke();
-    ctx.font = '9px sans-serif';
-    ctx.fillStyle = '#888';
-    ctx.textAlign = 'left';
-    ctx.fillText(label, lx + 18, ly + 4);
   });
 }
 
@@ -1033,15 +1588,12 @@ function updateStats(step) {
 // ─────────────────────────────────────────────────────────────────
 //  スライダー
 // ─────────────────────────────────────────────────────────────────
-
-const sliderCfg = [
+[
   { sid: 's-R',     vid: 'v-R',     d: 3 },
   { sid: 's-Qt',    vid: 'v-Qt',    d: 4 },
   { sid: 's-Qw',    vid: 'v-Qw',    d: 3 },
   { sid: 's-sigma', vid: 'v-sigma', d: 3 },
-];
-
-sliderCfg.forEach(({ sid, vid, d }) => {
+].forEach(({ sid, vid, d }) => {
   document.getElementById(sid).addEventListener('input', e => {
     document.getElementById(vid).textContent =
       parseFloat(e.target.value).toFixed(d);
@@ -1052,7 +1604,6 @@ sliderCfg.forEach(({ sid, vid, d }) => {
 // ─────────────────────────────────────────────────────────────────
 //  ボタン
 // ─────────────────────────────────────────────────────────────────
-
 document.getElementById('btnReseed').addEventListener('click', () => {
   currentSeed = Math.floor(Math.random() * 1e9);
   stopAnim();
@@ -1061,21 +1612,20 @@ document.getElementById('btnReseed').addEventListener('click', () => {
 
 function stopAnim() {
   if (animId) { cancelAnimationFrame(animId); animId = null; }
-  document.getElementById('btnAnimate').textContent = '▶ アニメ';
+  document.getElementById('btnAnimate').textContent = '▶ アニメーション';
   document.getElementById('btnAnimate').classList.remove('running');
 }
 
 document.getElementById('btnAnimate').addEventListener('click', () => {
   if (animId) { stopAnim(); drawAll(appData.theta.length - 1); return; }
   if (!appData) return;
-
   animStep = 0;
   document.getElementById('btnAnimate').textContent = '⏹ 停止';
   document.getElementById('btnAnimate').classList.add('running');
 
   function tick() {
     drawAll(animStep);
-    animStep += 2;  // 2ステップずつ進める（速さ調整）
+    animStep += 2;
     if (animStep < appData.theta.length) {
       animId = requestAnimationFrame(tick);
     } else {
@@ -1089,7 +1639,6 @@ document.getElementById('btnAnimate').addEventListener('click', () => {
 // ─────────────────────────────────────────────────────────────────
 //  リサイズ & 初期化
 // ─────────────────────────────────────────────────────────────────
-
 window.addEventListener('resize', () => {
   stopAnim();
   if (appData) drawAll(appData.theta.length - 1);
