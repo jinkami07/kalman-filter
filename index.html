@@ -1412,19 +1412,19 @@
     <div class="exp-card full">
       <h3>📋&ensp;実装チェックリスト</h3>
       <div class="exp-grid exp-3col" style="margin-top:4px">
-        <div class="callout co-gray" style="margin:0">
+        <div class="callout co-blue" style="margin:0">
           <strong>モデリング</strong><br>
           ・連続系を離散化（前進オイラー or ZOH）<br>
           ・$A$，$B$，$H$ を明示的に書き下す<br>
           ・次元を必ず確認する
         </div>
-        <div class="callout co-gray" style="margin:0">
+        <div class="callout co-purple" style="margin:0">
           <strong>ノイズ設計</strong><br>
           ・$R$ はセンサスペックから設定<br>
           ・$Q$ は試行錯誤 or 物理的考察<br>
           ・$P_0$ は大きめに設定（保守的）
         </div>
-        <div class="callout co-gray" style="margin:0">
+        <div class="callout co-green" style="margin:0">
           <strong>数値安定性</strong><br>
           ・$P_k$ 更新は Joseph 形式を推奨<br>
           ・$P_k$ の正定値性を定期チェック<br>
@@ -1451,7 +1451,7 @@
         <p>非線形システム $\mathbf{x}_{k+1} = f(\mathbf{x}_k, u_k)$，$z_k = h(\mathbf{x}_k)$ に対応する。現在の推定値周りでヤコビアン行列
           $$F_k = \frac{\partial f}{\partial \mathbf{x}}\bigg|_{\hat{\mathbf{x}}_k}, \quad H_k = \frac{\partial h}{\partial \mathbf{x}}\bigg|_{\hat{\mathbf{x}}^-_k}$$
           を計算し，線形化した上で通常の KF の式を適用する。</p>
-        <div class="callout co-gray">
+        <div class="callout co-blue">
           <strong>用途：</strong>ロボットの自己位置推定（SLAM），UAV 姿勢推定，非線形制御系<br>
           <strong>弱点：</strong>強い非線形性では線形化誤差が大きく，発散することがある
         </div>
@@ -1461,7 +1461,7 @@
         <h3>🎯&ensp;アンセンテッドカルマンフィルタ（UKF）</h3>
         <p>ヤコビアンを使わず，<strong>シグマ点</strong>と呼ばれる代表点の集合を非線形関数に通すことで，分布の平均・共分散を高精度に伝播させる（Unscented 変換）。
           状態次元 $n$ に対し $2n+1$ 個のシグマ点を用いる。</p>
-        <div class="callout co-gray">
+        <div class="callout co-purple">
           <strong>用途：</strong>センサフュージョン，ロボティクス，金融工学<br>
           <strong>強み：</strong>EKF より高精度かつヤコビアン不要。計算コストは EKF と同程度
         </div>
@@ -1471,7 +1471,7 @@
         <h3>🌊&ensp;パーティクルフィルタ（PF）</h3>
         <p>状態の事後分布を多数の粒子（サンプル）で近似する逐次モンテカルロ法。非線形・非ガウスの問題に対応できる最も汎用的な逐次ベイズ推定法だ。
           粒子数 $N$ を増やすほど精度が上がるが，計算コストは $O(N)$ でスケールする。</p>
-        <div class="callout co-gray">
+        <div class="callout co-amber">
           <strong>用途：</strong>GPS なし屋内測位，障害物回避，マルチモーダル分布<br>
           <strong>弱点：</strong>高次元では粒子数が爆発的に必要（次元の呪い）
         </div>
