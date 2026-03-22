@@ -432,6 +432,100 @@
     }
 
     /* ════════════════════════════════════════════
+       ダークモード
+       ════════════════════════════════════════════ */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:        #0f1117;
+        --bg-alt:    #161b22;
+        --bg-card:   #1c2128;
+        --border:    #30363d;
+        --border-lt: #21262d;
+        --text:      #e6edf3;
+        --text-muted:#8b949e;
+        --text-dim:  #6e7681;
+        --blue:      #58a6ff;
+        --blue-bg:   #0d1f38;
+        --blue-bd:   #1f3a5c;
+        --green:     #3fb950;
+        --green-bg:  #0d2b17;
+        --green-bd:  #1a4a28;
+        --amber:     #d29922;
+        --amber-bg:  #2b1f06;
+        --amber-bd:  #4a3410;
+        --purple:    #bc8cff;
+        --purple-bg: #1e1535;
+        --purple-bd: #3a2060;
+      }
+
+      html { color-scheme: dark; }
+
+      body            { background: var(--bg); color: var(--text); }
+      .section-alt    { background: var(--bg-alt); }
+      .section-title  { color: var(--text); }
+      .section-desc   { color: var(--text-muted); }
+      .section-tag    { color: var(--blue); }
+
+      header          { border-color: var(--border-lt); }
+      header h1       { color: var(--text); }
+      header .lead    { color: var(--text-muted); }
+      header .lead strong { color: var(--text); }
+      .header-badge   { background: var(--blue-bg); color: var(--blue); }
+
+      .gh-link        { background: var(--bg-card); border-color: var(--border); color: var(--text-muted); }
+      .gh-link:hover  { background: var(--text); color: var(--bg); }
+
+      .prob-card      { background: var(--bg-card); border-color: var(--border); }
+      .prob-card h3   { color: var(--text); }
+      .prob-card p    { color: var(--text-muted); }
+
+      .exp-card       { background: var(--bg-card); border-color: var(--border); }
+      .exp-card h3    { color: var(--text); }
+      .exp-card p     { color: var(--text-muted); }
+
+      .fml            { background: var(--bg-alt); border-color: var(--border); color: var(--text-muted); }
+      .fml .lbl       { color: var(--text-dim); }
+
+      .callout        { border-radius: 0 8px 8px 0; }
+      .co-blue        { background: var(--blue-bg);   border-color: var(--blue);   color: #a5c8f5; }
+      .co-green       { background: var(--green-bg);  border-color: var(--green);  color: #7ee09a; }
+      .co-amber       { background: var(--amber-bg);  border-color: var(--amber);  color: #e3bc5a; }
+      .co-purple      { background: var(--purple-bg); border-color: var(--purple); color: #d4a8ff; }
+
+      summary         { background: var(--blue-bg); border-color: var(--blue-bd); color: var(--blue); }
+      .details-body   { background: #0d1826; border-color: var(--blue-bd); color: #a5c8f5; }
+      .details-body .fml { background: var(--bg-card); border-color: var(--blue-bd); }
+
+      .param-table th { color: var(--text-muted); border-color: var(--border); }
+      .param-table td { color: var(--text-muted); border-color: var(--border-lt); }
+      .param-table td:first-child { color: var(--blue); }
+
+      .param-card     { background: var(--bg-card); border-color: var(--border); }
+      .param-name     { color: var(--text); }
+      .param-hint     { color: var(--text-dim); }
+
+      .sys-info-bar   { background: var(--bg-alt); border-color: var(--border); color: var(--text-muted); }
+      .sys-info-bar .lbl { color: var(--text-dim); }
+      .sys-info-bar .val { color: var(--text); }
+
+      #btnReseed      { background: var(--bg-card); color: var(--text-muted); border-color: var(--border); }
+      #btnAnimate     { background: var(--blue); color: #0d1117; }
+      #btnAnimate.running { background: #f85149; }
+
+      .chart-card     { background: var(--bg-card); border-color: var(--border); }
+      .chart-legend   { background: var(--bg-alt); border-color: var(--border-lt); }
+      .leg-item       { color: var(--text-muted); }
+
+      .insight-bar    { background: var(--green-bg); border-color: var(--green-bd); color: #7ee09a; }
+
+      .stat-card      { background: var(--bg-card); border-color: var(--border); }
+      .stat-label     { color: var(--text-dim); }
+      .stat-value     { color: var(--blue); }
+
+      footer          { border-color: var(--border-lt); color: var(--text-dim); }
+    }
+
+    /* ════════════════════════════════════════════
        レスポンシブ — タブレット (max 900px)
        ════════════════════════════════════════════ */
     @media (max-width: 900px) {
