@@ -3,3 +3,7 @@
 エンコーダで角度のみを観測しながら、カルマンフィルタで角度・角速度を同時推定するインタラクティブ学習ツール。
 
 🔗 https://jinkami07.github.io/kalman-filter/
+
+---
+
+© 2026 [jinkami07](https://github.com/jinkami07)
