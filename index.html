@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>カルマンフィルタ 視覚的学習</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #0f1117;
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #ffffff;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 24px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── パネル ─────────────────────────────── */
+    .panel {
+      background: #1a1d27;
+      border: 1px solid #2a2d3e;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .panel h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #666;
+      margin-bottom: 16px;
+    }
+
+    /* ── スライダー ─────────────────────────── */
+    .param-group {
+      margin-bottom: 20px;
+    }
+
+    .param-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .param-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .param-name .symbol {
+      font-style: italic;
+      color: #7eb3ff;
+    }
+
+    .param-value {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #7eb3ff;
+      min-width: 50px;
+      text-align: right;
+    }
+
+    .param-desc {
+      font-size: 0.72rem;
+      color: #666;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: #7eb3ff;
+      cursor: pointer;
+    }
+
+    /* ── ボタン ─────────────────────────────── */
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 8px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    button:hover { opacity: 0.85; }
+
+    #btnReseed {
+      background: #2e3250;
+      color: #c0c8ff;
+    }
+
+    #btnAnimate {
+      background: #1e4a2e;
+      color: #7dffb3;
+    }
+
+    #btnAnimate.running {
+      background: #4a1e1e;
+      color: #ff9090;
+    }
+
+    /* ── 凡例 ─────────────────────────────── */
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      color: #bbb;
+    }
+
+    .legend-line {
+      width: 28px;
+      height: 3px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── 数式エリア ─────────────────────────── */
+    .formula-box {
+      background: #12141e;
+      border: 1px solid #2a2d3e;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 16px;
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: #aaa;
+    }
+
+    .formula-box .step {
+      color: #7eb3ff;
+      font-weight: 700;
+      display: block;
+      margin-top: 6px;
+    }
+
+    .formula-box .highlight {
+      color: #ffe07a;
+    }
+
+    /* ── メイン可視化 ─────────────────────────── */
+    .vis-area {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    canvas {
+      width: 100%;
+      background: #12141e;
+      border: 1px solid #2a2d3e;
+      border-radius: 12px;
+      display: block;
+    }
+
+    /* ── ゲイングラフ ─────────────────────────── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-card {
+      background: #1a1d27;
+      border: 1px solid #2a2d3e;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #7eb3ff;
+    }
+
+    /* ── タブ説明 ─────────────────────────── */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: -1px;
+    }
+
+    .tab {
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      border-radius: 8px 8px 0 0;
+      border: 1px solid #2a2d3e;
+      border-bottom: none;
+      cursor: pointer;
+      background: #12141e;
+      color: #666;
+    }
+
+    .tab.active {
+      background: #1a1d27;
+      color: #fff;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>カルマンフィルタ — インタラクティブ学習</h1>
+<p class="subtitle">スライダーを動かしてパラメータの影響をリアルタイムで確認しよう</p>
+
+<div class="layout">
+
+  <!-- ── 左パネル: コントロール ── -->
+  <div>
+    <div class="panel">
+      <h2>パラメータ</h2>
+
+      <div class="param-group">
+        <div class="param-label">
+          <span class="param-name">観測ノイズ <span class="symbol">R</span></span>
+          <span class="param-value" id="val-R">1.00</span>
+        </div>
+        <div class="param-desc">センサーの精度。大きいほど観測値を信用しない → フィルタが滑らか</div>
+        <input type="range" id="slider-R" min="0.01" max="10" step="0.01" value="1.0" />
+      </div>
+
+      <div class="param-group">
+        <div class="param-label">
+          <span class="param-name">プロセスノイズ <span class="symbol">Q</span></span>
+          <span class="param-value" id="val-Q">0.10</span>
+        </div>
+        <div class="param-desc">システムの不確かさ。大きいほど観測値を積極的に取り入れる → 応答性↑</div>
+        <input type="range" id="slider-Q" min="0.001" max="5" step="0.001" value="0.1" />
+      </div>
+
+      <div class="param-group">
+        <div class="param-label">
+          <span class="param-name">初期推定誤差 <span class="symbol">P₀</span></span>
+          <span class="param-value" id="val-P0">1.00</span>
+        </div>
+        <div class="param-desc">初期の不確かさ。後のステップでは影響が薄れる（収束する）</div>
+        <input type="range" id="slider-P0" min="0.01" max="20" step="0.01" value="1.0" />
+      </div>
+
+      <div class="param-group">
+        <div class="param-label">
+          <span class="param-name">観測ノイズ標準偏差 <span class="symbol">σ_obs</span></span>
+          <span class="param-value" id="val-sigma">1.50</span>
+        </div>
+        <div class="param-desc">シミュレーションで生成する実際のノイズ量（グラフの「観測値」のブレ）</div>
+        <input type="range" id="slider-sigma" min="0.1" max="5" step="0.1" value="1.5" />
+      </div>
+
+      <div class="btn-row">
+        <button id="btnReseed">🔄 再生成</button>
+        <button id="btnAnimate">▶ アニメ</button>
+      </div>
+
+      <!-- 凡例 -->
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-line" style="background:#4dabf7;"></div>
+          真値（正弦波）
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#ff6b6b; opacity:0.6;"></div>
+          観測値（ノイズあり）
+        </div>
+        <div class="legend-item">
+          <div class="legend-line" style="background:#51cf66;"></div>
+          カルマン推定値
+        </div>
+        <div class="legend-item">
+          <div class="legend-line" style="background:#51cf6655; height:8px; border-radius:4px;"></div>
+          推定誤差 ±σ（P の平方根）
+        </div>
+      </div>
+
+      <!-- 数式 -->
+      <div class="formula-box">
+        <span class="step">① 予測ステップ</span>
+        x̂⁻ₖ = x̂ₖ₋₁<br>
+        <span class="highlight">P⁻ₖ = Pₖ₋₁ + Q</span>
+
+        <span class="step">② 更新ステップ</span>
+        <span class="highlight">Kₖ = P⁻ₖ / (P⁻ₖ + R)</span>  ← カルマンゲイン<br>
+        x̂ₖ = x̂⁻ₖ + Kₖ(zₖ − x̂⁻ₖ)<br>
+        Pₖ = (1 − Kₖ) P⁻ₖ
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 右: 可視化 ── -->
+  <div class="vis-area">
+
+    <!-- メイングラフ -->
+    <canvas id="mainCanvas" height="320"></canvas>
+
+    <!-- カルマンゲイン推移 -->
+    <canvas id="gainCanvas" height="140"></canvas>
+
+    <!-- 統計カード -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">最終カルマンゲイン K</div>
+        <div class="stat-value" id="stat-K">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">最終推定誤差分散 P</div>
+        <div class="stat-value" id="stat-P">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">RMS 誤差（推定 vs 真値）</div>
+        <div class="stat-value" id="stat-RMSE">—</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+//  データ生成 & カルマンフィルタ
+// ─────────────────────────────────────────────
+const N = 120;
+
+let seed = 42;
+function rand() {
+  seed = (seed * 1664525 + 1013904223) >>> 0;
+  return (seed >>> 0) / 4294967296;
+}
+function randn() {
+  // Box-Muller
+  let u = 0, v = 0;
+  while (u === 0) u = rand();
+  while (v === 0) v = rand();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+
+function reseed(n) { seed = n >>> 0; }
+
+function generateData(sigma_obs) {
+  const truth = [], obs = [];
+  for (let k = 0; k < N; k++) {
+    const t = k / N * 4 * Math.PI;
+    const x = Math.sin(t) + 0.3 * Math.sin(3 * t);
+    truth.push(x);
+    obs.push(x + randn() * sigma_obs);
+  }
+  return { truth, obs };
+}
+
+function kalmanFilter(obs, R, Q, P0) {
+  let x_est = obs[0];
+  let P = P0;
+  const estimates = [], gains = [], Ps = [];
+
+  for (let k = 0; k < obs.length; k++) {
+    // 予測
+    const P_pred = P + Q;
+    // カルマンゲイン
+    const K = P_pred / (P_pred + R);
+    // 更新
+    x_est = x_est + K * (obs[k] - x_est);
+    P = (1 - K) * P_pred;
+
+    estimates.push(x_est);
+    gains.push(K);
+    Ps.push(P);
+  }
+  return { estimates, gains, Ps };
+}
+
+// ─────────────────────────────────────────────
+//  描画ユーティリティ
+// ─────────────────────────────────────────────
+function getParams() {
+  return {
+    R: parseFloat(document.getElementById('slider-R').value),
+    Q: parseFloat(document.getElementById('slider-Q').value),
+    P0: parseFloat(document.getElementById('slider-P0').value),
+    sigma: parseFloat(document.getElementById('slider-sigma').value),
+  };
+}
+
+function setupCanvas(canvas) {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = parseInt(canvas.getAttribute('height')) * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return { ctx, w: rect.width, h: parseInt(canvas.getAttribute('height')) };
+}
+
+function mapX(k, w, pad) { return pad + (k / (N - 1)) * (w - 2 * pad); }
+function mapY(v, minV, maxV, h, pad) {
+  return pad + (1 - (v - minV) / (maxV - minV)) * (h - 2 * pad);
+}
+
+function drawGrid(ctx, w, h, pad, minV, maxV, steps = 5) {
+  ctx.strokeStyle = '#1e2130';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= steps; i++) {
+    const y = pad + (i / steps) * (h - 2 * pad);
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(w - pad, y); ctx.stroke();
+    const v = maxV - (i / steps) * (maxV - minV);
+    ctx.fillStyle = '#444';
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(v.toFixed(1), pad - 4, y + 4);
+  }
+  // x 軸目盛り
+  for (let i = 0; i <= 4; i++) {
+    const x = mapX(i * (N - 1) / 4, w, pad);
+    ctx.beginPath(); ctx.moveTo(x, h - pad); ctx.lineTo(x, pad); ctx.stroke();
+    ctx.fillStyle = '#444';
+    ctx.textAlign = 'center';
+    ctx.fillText(`t=${(i * (N - 1) / 4).toFixed(0)}`, x, h - pad + 14);
+  }
+}
+
+// ─────────────────────────────────────────────
+//  メイングラフ描画
+// ─────────────────────────────────────────────
+let currentData = null;
+
+function drawMain(animStep) {
+  const canvas = document.getElementById('mainCanvas');
+  const { ctx, w, h } = setupCanvas(canvas);
+  const pad = 36;
+
+  const { R, Q, P0, sigma } = getParams();
+  if (!currentData) currentData = generateData(sigma);
+  const { truth, obs } = currentData;
+  const { estimates, gains, Ps } = kalmanFilter(obs, R, Q, P0);
+
+  const step = (animStep !== undefined) ? Math.min(animStep, N - 1) : N - 1;
+
+  // y 範囲
+  const allVals = [...truth, ...obs];
+  const minV = Math.min(...allVals) - 0.5;
+  const maxV = Math.max(...allVals) + 0.5;
+  const my = v => mapY(v, minV, maxV, h, pad);
+  const mx = k => mapX(k, w, pad);
+
+  ctx.clearRect(0, 0, w, h);
+  drawGrid(ctx, w, h, pad, minV, maxV);
+
+  // ── 推定誤差帯（±√P）
+  ctx.beginPath();
+  for (let k = 0; k <= step; k++) {
+    const sig = Math.sqrt(Ps[k]);
+    const x = mx(k);
+    const yU = my(estimates[k] + sig);
+    if (k === 0) ctx.moveTo(x, yU); else ctx.lineTo(x, yU);
+  }
+  for (let k = step; k >= 0; k--) {
+    const sig = Math.sqrt(Ps[k]);
+    ctx.lineTo(mx(k), my(estimates[k] - sig));
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(81,207,102,0.12)';
+  ctx.fill();
+
+  // ── 真値
+  ctx.beginPath();
+  ctx.strokeStyle = '#4dabf7';
+  ctx.lineWidth = 2;
+  for (let k = 0; k <= step; k++) {
+    const x = mx(k), y = my(truth[k]);
+    k === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // ── 観測値（点）
+  for (let k = 0; k <= step; k++) {
+    ctx.beginPath();
+    ctx.arc(mx(k), my(obs[k]), 2.5, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,107,107,0.55)';
+    ctx.fill();
+  }
+
+  // ── カルマン推定
+  ctx.beginPath();
+  ctx.strokeStyle = '#51cf66';
+  ctx.lineWidth = 2.5;
+  for (let k = 0; k <= step; k++) {
+    const x = mx(k), y = my(estimates[k]);
+    k === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  // ── 現在地マーカー（アニメ中）
+  if (animStep !== undefined && step < N - 1) {
+    ctx.beginPath();
+    ctx.arc(mx(step), my(estimates[step]), 5, 0, Math.PI * 2);
+    ctx.fillStyle = '#51cf66';
+    ctx.fill();
+  }
+
+  // ── 統計
+  const rmse = Math.sqrt(estimates.slice(0, step + 1).reduce((s, e, i) => s + (e - truth[i]) ** 2, 0) / (step + 1));
+  document.getElementById('stat-K').textContent = gains[step].toFixed(3);
+  document.getElementById('stat-P').textContent = Ps[step].toFixed(4);
+  document.getElementById('stat-RMSE').textContent = rmse.toFixed(4);
+
+  drawGain(gains, Ps, step);
+}
+
+// ─────────────────────────────────────────────
+//  カルマンゲイン推移グラフ
+// ─────────────────────────────────────────────
+function drawGain(gains, Ps, step) {
+  const canvas = document.getElementById('gainCanvas');
+  const { ctx, w, h } = setupCanvas(canvas);
+  const pad = 36;
+
+  ctx.clearRect(0, 0, w, h);
+
+  const mx = k => mapX(k, w, pad);
+
+  // ゲイン（0〜1）
+  const myK = v => mapY(v, 0, 1, h, pad);
+  drawGrid(ctx, w, h, pad, 0, 1, 4);
+
+  ctx.font = '11px sans-serif';
+  ctx.fillStyle = '#666';
+  ctx.textAlign = 'left';
+  ctx.fillText('カルマンゲイン K（0〜1）', pad + 4, pad + 14);
+
+  ctx.beginPath();
+  ctx.strokeStyle = '#ffa94d';
+  ctx.lineWidth = 2;
+  for (let k = 0; k <= step; k++) {
+    const x = mx(k), y = myK(gains[k]);
+    k === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+}
+
+// ─────────────────────────────────────────────
+//  スライダー連動
+// ─────────────────────────────────────────────
+const sliders = [
+  { id: 'slider-R', val: 'val-R', digits: 2 },
+  { id: 'slider-Q', val: 'val-Q', digits: 3 },
+  { id: 'slider-P0', val: 'val-P0', digits: 2 },
+  { id: 'slider-sigma', val: 'val-sigma', digits: 2 },
+];
+
+sliders.forEach(({ id, val, digits }) => {
+  const el = document.getElementById(id);
+  const vEl = document.getElementById(val);
+  el.addEventListener('input', () => {
+    vEl.textContent = parseFloat(el.value).toFixed(digits);
+    if (id === 'slider-sigma') currentData = null;
+    stopAnim();
+    drawMain();
+  });
+});
+
+// ─────────────────────────────────────────────
+//  ボタン
+// ─────────────────────────────────────────────
+document.getElementById('btnReseed').addEventListener('click', () => {
+  reseed(Date.now());
+  currentData = null;
+  stopAnim();
+  drawMain();
+});
+
+// ── アニメーション
+let animId = null;
+let animFrame = 0;
+
+function stopAnim() {
+  if (animId) { cancelAnimationFrame(animId); animId = null; }
+  document.getElementById('btnAnimate').textContent = '▶ アニメ';
+  document.getElementById('btnAnimate').classList.remove('running');
+}
+
+document.getElementById('btnAnimate').addEventListener('click', () => {
+  if (animId) {
+    stopAnim();
+    drawMain();
+    return;
+  }
+  animFrame = 0;
+  document.getElementById('btnAnimate').textContent = '⏹ 停止';
+  document.getElementById('btnAnimate').classList.add('running');
+
+  function step() {
+    drawMain(animFrame);
+    animFrame++;
+    if (animFrame < N) {
+      animId = requestAnimationFrame(step);
+    } else {
+      stopAnim();
+      drawMain();
+    }
+  }
+  animId = requestAnimationFrame(step);
+});
+
+// ─────────────────────────────────────────────
+//  初期化
+// ─────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  stopAnim();
+  drawMain();
+});
+
+drawMain();
+</script>
+</body>
+</html>
