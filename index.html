@@ -1753,8 +1753,8 @@ document.getElementById('btnAnimate').addEventListener('click', () => {
     if (animStep < appData.theta.length) {
       animId = requestAnimationFrame(tick);
     } else {
-      stopAnim();
-      drawAll(appData.theta.length - 1);
+      animStep = 0;  // ループ
+      animId = requestAnimationFrame(tick);
     }
   }
   animId = requestAnimationFrame(tick);
