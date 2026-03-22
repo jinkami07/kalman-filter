@@ -423,8 +423,8 @@
     <p class="section-tag">Problem Setup</p>
     <h2 class="section-title">なぜカルマンフィルタが必要か</h2>
     <p class="section-desc">
-      ロボット関節の PD 制御には角速度 $\omega$ が必要です。
-      しかし一般的なエンコーダが測れるのは角度 $\theta$ だけです。
+      ロボット関節の PD 制御には角速度 $\omega$ が必要である。
+      しかし一般的なエンコーダが測れるのは角度 $\theta$ だけである。
     </p>
     <div class="card-grid-3">
       <div class="prob-card">
@@ -432,8 +432,8 @@
         <h3>制御の問題</h3>
         <p>
           PD 制御則 $\tau = K_p e_\theta + K_d e_\omega$ の微分項には
-          <strong>角速度 $\omega$</strong> が必要です。
-          しかしエンコーダは角度しか返しません。
+          <strong>角速度 $\omega$</strong> が必要だ。
+          しかしエンコーダは角度しか返さない。
         </p>
       </div>
       <div class="prob-card">
@@ -442,7 +442,7 @@
         <p>
           数値微分 $\hat\omega \approx (\theta_k - \theta_{k-1})/\Delta t$ は
           シンプルですが，観測ノイズが微分で増幅され，
-          高周波ノイズが大きく乗ってしまいます。
+          高周波ノイズが大きく乗ってしまう。
         </p>
       </div>
       <div class="prob-card">
@@ -450,8 +450,8 @@
         <h3>カルマンフィルタの解決策</h3>
         <p>
           物理モデル（運動方程式）を内部に持ち，
-          角度観測列から角速度を<strong>最適に間接推定</strong>します。
-          ノイズ増幅の問題を回避できます。
+          角度観測列から角速度を<strong>最適に間接推定</strong>する。
+          ノイズ増幅の問題を回避できる。
         </p>
       </div>
     </div>
@@ -467,7 +467,7 @@
     <p class="section-tag">State-Space Model</p>
     <h2 class="section-title">状態空間モデルの導出</h2>
     <p class="section-desc">
-      KF の内部モデル（$A$，$B$，$H$ 行列）は，物理の運動方程式から体系的に導出できます。
+      KF の内部モデル（$A$，$B$，$H$ 行列）は，物理の運動方程式から体系的に導出できる。
     </p>
 
     <div class="exp-grid exp-3col">
@@ -481,7 +481,7 @@
         <div class="fml">
           $$\dot\omega = \frac{\tau}{J} - \frac{b}{J}\omega$$
         </div>
-        <p>これを<strong>状態方程式</strong> $\dot{\mathbf{x}} = A_c\mathbf{x} + B_c u$ の形に書けます。</p>
+        <p>これを<strong>状態方程式</strong> $\dot{\mathbf{x}} = A_c\mathbf{x} + B_c u$ の形に書ける。</p>
       </div>
 
       <div class="exp-card">
@@ -496,7 +496,7 @@
           $$\omega_{k+1} = \!\left(1 - \frac{b\Delta t}{J}\right)\!\omega_k + \frac{\Delta t}{J}\tau_k$$
         </div>
         <div class="callout co-amber">
-          $(2,2)$ 要素 $1 - b\Delta t/J = 0.9$ は，1ステップごとに速度が 10% 減衰することを意味します。
+          $(2,2)$ 要素 $1 - b\Delta t/J = 0.9$ は，1ステップごとに速度が 10% 減衰することを意味する。
         </div>
       </div>
 
@@ -531,16 +531,16 @@
     <p class="section-tag">Algorithm</p>
     <h2 class="section-title">カルマンフィルタの仕組み</h2>
     <p class="section-desc">
-      「予測」と「更新」の 2 ステップを繰り返すアルゴリズムです。
-      まず各記号の次元を確認してから式を読むと理解しやすくなります。
+      「予測」と「更新」の 2 ステップを繰り返すアルゴリズムである。
+      まず各記号の次元を確認してから式を読むと理解しやすい。
     </p>
 
     <!-- 事前 / 事後 の説明 -->
     <div class="exp-card full" style="margin-bottom:16px; border-left: 4px solid #2563eb;">
       <h3>📌&ensp;記号の読み方：$\hat{\mathbf{x}}^-_k$ と $\hat{\mathbf{x}}_k$ の違い</h3>
       <p>
-        カルマンフィルタでは，同じ時刻 $k$ に「センサを使う前」と「センサを使った後」の 2 つの推定値が存在します。
-        この区別を上付き $^-$ で表します。
+        カルマンフィルタでは，同じ時刻 $k$ に「センサを使う前」と「センサを使った後」の 2 つの推定値が存在する。
+        この区別を上付き $^-$ で表す。
       </p>
       <div style="overflow-x:auto; margin: 12px 0;">
         <table class="param-table">
@@ -575,8 +575,8 @@
       <div class="callout co-amber" style="margin-top:10px">
         <strong>よくある混乱：</strong>
         $\hat{\mathbf{x}}^-_k$ の $^-$ は「マイナス（符号）」ではなく，
-        「<strong>更新前（before update）</strong>」を意味する慣習的な記号です。
-        $P^-_k \geq P_k$ となるため，大小関係としては $^-$ 付きの方が不確かさが大きい（悪い）推定です。
+        「<strong>更新前（before update）</strong>」を意味する慣習的な記号だ。
+        $P^-_k \geq P_k$ となるため，大小関係としては $^-$ 付きの方が不確かさが大きい（悪い）推定である。
       </div>
 
     </div>
@@ -662,9 +662,9 @@
         <strong>よくある混乱ポイント：</strong>
         $Q \in \mathbb{R}^{2\times 2}$ は<strong>行列</strong>（状態が 2 次元のため），
         $R \in \mathbb{R}$ は<strong>スカラー</strong>（観測が 1 次元のため）。
-        一般に観測が $m$ 次元なら $R \in \mathbb{R}^{m\times m}$ の行列になります。
+        一般に観測が $m$ 次元なら $R \in \mathbb{R}^{m\times m}$ の行列になる。
         また $K_k \in \mathbb{R}^{2\times 1}$ はベクトルであり，
-        各行が「角度の観測でどれだけ角度・角速度を補正するか」を表します。
+        各行が「角度の観測でどれだけ角度・角速度を補正するか」を表す。
       </div>
     </div>
 
@@ -675,8 +675,8 @@
         <h3><span class="step-badge">1</span>予測ステップ（Predict）</h3>
         <p>
           前の推定値 $\hat{\mathbf{x}}_{k-1} \in \mathbb{R}^2$ と制御入力 $u_k \in \mathbb{R}$（トルク指令）から，
-          <strong>物理モデルだけ</strong>を使って次の状態を先読みします。
-          センサ情報はこの段階では使いません。
+          <strong>物理モデルだけ</strong>を使って次の状態を先読みする。
+          センサ情報はこの段階では使わない。
         </p>
         <div class="fml">
           <span class="lbl">状態予測　$\hat{\mathbf{x}}^-_k \in \mathbb{R}^2$</span>
@@ -693,11 +693,11 @@
         <p>
           $Q \in \mathbb{R}^{2\times 2}$ はプロセスノイズ共分散<strong>行列</strong>（モデルの不確かさ）。
           今回は $Q = \mathrm{diag}(Q_\theta,\,Q_\omega)$ の対角行列。
-          予測だけでは不確かさ $P^-_k$ は増大していきます。
+          予測だけでは不確かさ $P^-_k$ は増大していく。
         </p>
         <div class="callout co-blue">
-          <strong>ポイント：</strong>この式にはセンサ情報が一切入っていません。
-          純粋に「物理モデルを信じて」次の状態を計算しています。
+          <strong>ポイント：</strong>この式にはセンサ情報が一切入っていない。
+          純粋に「物理モデルを信じて」次の状態を計算している。
         </div>
       </div>
 
@@ -705,8 +705,8 @@
       <div class="exp-card">
         <h3><span class="step-badge">2</span>更新ステップ（Update）</h3>
         <p>
-          エンコーダの観測値 $z_k \in \mathbb{R}$（スカラー）を使って予測を補正します。
-          $H \in \mathbb{R}^{1\times 2}$ は「状態ベクトルから角度だけを取り出す」行列です。
+          エンコーダの観測値 $z_k \in \mathbb{R}$（スカラー）を使って予測を補正する。
+          $H \in \mathbb{R}^{1\times 2}$ は「状態ベクトルから角度だけを取り出す」行列である。
         </p>
         <div class="fml">
           <span class="lbl">カルマンゲイン　$K_k \in \mathbb{R}^{2\times 1}$（ベクトル）</span>
@@ -743,19 +743,19 @@
     <div class="exp-card full">
       <h3>📉&ensp;$P_k \in \mathbb{R}^{2\times 2}$ の収束と定常カルマンフィルタ</h3>
       <p>
-        $P_k \in \mathbb{R}^{2\times 2}$ は「現在の推定値への信頼度」を表す正定値対称行列です。
-        対角成分 $P_k[1,1]$ が角度の不確かさ，$P_k[2,2]$ が角速度の不確かさに対応します。
-        時間が経つにつれて定常値に収束します（「カルマンゲイン」グラフで $K_k$ が収束する様子が確認できます）。
+        $P_k \in \mathbb{R}^{2\times 2}$ は「現在の推定値への信頼度」を表す正定値対称行列である。
+        対角成分 $P_k[1,1]$ が角度の不確かさ，$P_k[2,2]$ が角速度の不確かさに対応する。
+        時間が経つにつれて定常値に収束する（「カルマンゲイン」グラフで $K_k$ が収束する様子が確認できる）。
       </p>
       <p>
         定常値に収束したカルマンゲイン $K_\infty \in \mathbb{R}^{2\times 1}$ を事前計算して固定する手法を<strong>定常カルマンフィルタ</strong>と呼び，
-        リアルタイム制御での計算コスト削減に使われます。
+        リアルタイム制御での計算コスト削減に使われる。
       </p>
       <div class="callout co-purple">
         <strong>観測できない角速度が推定できる理由：</strong><br>
-        $H = [1,\;0] \in \mathbb{R}^{1\times 2}$ なので角速度 $\omega$ は直接観測されません。
+        $H = [1,\;0] \in \mathbb{R}^{1\times 2}$ なので角速度 $\omega$ は直接観測されない。
         しかし $A \in \mathbb{R}^{2\times 2}$（運動方程式）を通じて $P_k$ の $(2,2)$ 成分（角速度の不確かさ）も更新されるため，
-        角速度の推定精度も徐々に向上します。これが KF がルエンベルガーオブザーバと同族である理由です。
+        角速度の推定精度も徐々に向上する。これが KF がルエンベルガーオブザーバと同族である理由だ。
       </div>
     </div>
   </div>
@@ -771,7 +771,7 @@
     <h2 class="section-title">カルマンフィルタの導出</h2>
     <p class="section-desc">
       なぜあの更新式になるのか？
-      「推定誤差の分散を最小にするゲイン $K_k \in \mathbb{R}^{2\times 1}$ を求める」という最小分散推定の観点から導出します。
+      「推定誤差の分散を最小にするゲイン $K_k \in \mathbb{R}^{2\times 1}$ を求める」という最小分散推定の観点から導出する。
     </p>
 
     <div class="exp-grid exp-2col" style="margin-bottom:16px">
@@ -870,7 +870,7 @@
       <h3><span class="step-badge">3</span>最適カルマンゲインの導出 — $\mathrm{tr}(P_k)$ の最小化</h3>
       <p>
         目標：<strong>推定誤差の総分散 $\mathrm{tr}(P_k) \in \mathbb{R}$ を最小にするゲイン $K_k \in \mathbb{R}^{2\times 1}$ を求める。</strong><br>
-        $\mathrm{tr}(P_k)$ を $K_k$ で微分してゼロとおきます。Joseph 形式を展開すると：
+        $\mathrm{tr}(P_k)$ を $K_k$ で微分してゼロとおく。Joseph 形式を展開すると：
       </p>
       <div class="fml">
         <span class="lbl">tr(P_k) の展開</span>
@@ -960,7 +960,7 @@
       </details>
       <div class="callout co-amber">
         <strong>注意：</strong>簡略形は数値誤差で $P_k$ が非対称・非正定値になることがある。
-        数値的に安定な Joseph 形式 $(I-K_kH)P^-_k(I-K_kH)^\top + K_kRK_k^\top$ の使用が実装上は推奨されます。
+        数値的に安定な Joseph 形式 $(I-K_kH)P^-_k(I-K_kH)^\top + K_kRK_k^\top$ の使用が実装上は推奨される。
       </div>
     </div>
 
@@ -968,7 +968,7 @@
     <div class="exp-card full" style="margin-top:16px">
       <h3>🎓&ensp;最適性のまとめ：なぜカルマンフィルタは「最適」か</h3>
       <p>
-        線形システム・ガウスノイズという条件のもとで，カルマンフィルタは次の意味で<strong>同時に最適</strong>です。
+        線形システム・ガウスノイズという条件のもとで，カルマンフィルタは次の意味で<strong>同時に最適</strong>である。
       </p>
       <div class="exp-grid exp-3col" style="margin-top:14px">
         <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px">
@@ -998,8 +998,8 @@
     <p class="section-tag">Interactive Simulator</p>
     <h2 class="section-title">インタラクティブシミュレーター</h2>
     <p class="section-desc">
-      スライダーを動かすとリアルタイムで結果が更新されます。
-      アニメーションでカルマンフィルタが時刻ごとに推定を更新する様子を確認しましょう。
+      スライダーを動かすとリアルタイムで結果が更新される。
+      アニメーションでカルマンフィルタが時刻ごとに推定を更新する様子を確認しよう。
     </p>
 
     <!-- 固定パラメータ表示 -->
@@ -1093,7 +1093,7 @@
       <span>
         角速度 $\omega$ はエンコーダで<strong>直接観測できない</strong>にもかかわらず，
         カルマンフィルタは運動方程式（$A$ 行列）を内部モデルとして使い，角速度を間接的に推定できる。
-        これがオブザーバとしての KF の強みです。
+        これがオブザーバとしての KF の強みだ。
       </span>
     </div>
 
@@ -1128,8 +1128,8 @@
     <p class="section-tag">Parameter Tuning</p>
     <h2 class="section-title">パラメータの意味とチューニング指針</h2>
     <p class="section-desc">
-      設計パラメータ $R$，$Q$ の設定がフィルタの性能を大きく左右します。
-      シミュレーターで実際に動かして感覚をつかみましょう。
+      設計パラメータ $R$，$Q$ の設定がフィルタの性能を大きく左右する。
+      シミュレーターで実際に動かして感覚をつかもう。
     </p>
 
     <div class="exp-grid exp-2col">
